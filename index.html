@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Sky Square Warje | Premium 2 & 3 BHK Homes by SJ Group</title>
     <meta name="description" content="Discover Sky Square in Warje, Pune. Premium hillside 2 & 3 BHK residences with world-class amenities. RERA No: P5210002502913.">
     <meta name="keywords" content="Sky Square Warje, SJ Group, 2 BHK Warje, 3 BHK Warje, New Projects Pune, SJ Skysquare Price">
@@ -17,7 +16,7 @@
         
         /* Modern Glassmorphism */
         .nav-glass { 
-            background: rgba(255, 255, 255, 0.8); 
+            background: rgba(255, 255, 255, 0.85); 
             backdrop-filter: blur(12px); 
             -webkit-backdrop-filter: blur(12px);
         }
@@ -43,17 +42,80 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #2563eb; border-radius: 10px; }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-container {
+            background: white;
+            max-width: 480px;
+            width: 90%;
+            border-radius: 2rem;
+            padding: 2rem;
+            transform: scale(0.95);
+            transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: 0 40px 60px rgba(0,0,0,0.3);
+        }
+        .modal-overlay.active .modal-container {
+            transform: scale(1);
+        }
+        .toast-message {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #0f172a;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.3px;
+            z-index: 1100;
+            opacity: 0;
+            transition: opacity 0.25s, transform 0.25s;
+            pointer-events: none;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            backdrop-filter: blur(8px);
+            background: rgba(15,23,42,0.9);
+            border-left: 4px solid #2563eb;
+        }
+        .toast-message.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            ring: 2px solid #2563eb;
+        }
     </style>
 </head>
 <body class="bg-white text-slate-900 overflow-x-hidden">
 
-    <nav class="fixed w-full z-50 nav-glass border-b border-slate-100">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
+    <nav class="fixed w-full z-50 nav-glass border-b border-slate-100 transition-all duration-300 py-3">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3 group cursor-pointer">
                 <div class="bg-blue-600 text-white px-3 py-1 font-black text-xl italic rounded-lg group-hover:rotate-3 transition-transform">SJ</div>
                 <div class="flex flex-col leading-none">
                     <span class="text-lg font-extrabold tracking-tighter uppercase text-slate-900">Sky Square</span>
-                    <span class="text-[9px] font-bold text-blue-600 tracking-[0.2em] uppercase">Warje, Pune</span>
                 </div>
             </div>
             
@@ -62,19 +124,20 @@
                 <a href="#location" class="hover:text-blue-600 transition relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all">Location</a>
                 <a href="#amenities" class="hover:text-blue-600 transition relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all">Amenities</a>
                 <a href="#plans" class="hover:text-blue-600 transition relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all">Plans</a>
+                <a href="#gallery" class="hover:text-blue-600 transition relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-blue-600 hover:after:w-full after:transition-all">Gallary</a>
             </div>
 
             <div class="flex items-center gap-4">
                 <a href="tel:+919011146666" class="hidden md:flex items-center gap-2 font-bold text-slate-900 text-sm hover:text-blue-600 transition">
                     <i data-lucide="phone-call" class="w-4 h-4 text-blue-600"></i> +91 90111 46666
                 </a>
-                <button class="blue-gradient text-white px-7 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest hover:shadow-lg hover:shadow-blue-200 transition-all active:scale-95">Enquire Now</button>
+                <button id="enquireNavBtn" class="blue-gradient text-white px-7 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest hover:shadow-lg hover:shadow-blue-200 transition-all active:scale-95 shadow-md">Enquire Now</button>
             </div>
         </div>
     </nav>
 
     <header class="relative h-screen flex items-center justify-center overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=2070" class="absolute inset-0 w-full h-full object-cover scale-105 animate-[pulse_10s_infinite]" alt="Sky Square Elevation">
+        <img src="assets/outside.jpeg" class="absolute inset-0 w-full h-full object-cover scale-105 animate-[pulse_10s_infinite]" alt="Sky Square Elevation">
         <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
         
         <div class="relative z-10 text-center text-white px-4 max-w-4xl">
@@ -84,13 +147,13 @@
             <h1 class="heading-xl text-5xl md:text-8xl mb-10">A Life Rooted <br> In <span class="text-blue-500 italic">Serenity.</span></h1>
             
             <div class="flex flex-col sm:flex-row gap-5 justify-center items-center">
-                <a href="assets/Sky_Square_Brochure.pdf" download="Sky_Square_Warje_Brochure" class="group flex items-center gap-3 bg-white text-black px-10 py-5 rounded-full font-bold uppercase text-xs tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-2xl">
-                    <i data-lucide="download" class="w-4 h-4 group-hover:animate-bounce"></i> Download Brochure
-                </a>
-                <a href="#overview" class="px-10 py-5 border border-white/50 rounded-full font-bold uppercase text-xs tracking-widest hover:bg-white/10 backdrop-blur-sm transition">
-                    Virtual Tour
-                </a>
-            </div>
+    <a href="assets/Sky_Square_Brochure.pdf" 
+       download="Sky_Square_Brochure" 
+       class="group flex items-center gap-3 bg-white text-black px-10 py-5 rounded-full font-bold uppercase text-xs tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-lg hover:shadow-xl">
+        <i data-lucide="download" class="w-4 h-4 group-hover:animate-bounce"></i>
+        Download Brochure
+    </a>
+</div>
         </div>
 
         <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
@@ -199,119 +262,354 @@
         </div>
     </section>
 
-    <section id="amenities" class="py-32 bg-white">
+    <section class="py-32 bg-slate-50">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-20">
-                <span class="text-blue-600 font-black uppercase tracking-[0.4em] text-[10px]">Indulgences</span>
-                <h2 class="heading-xl text-4xl md:text-6xl mt-4">Curated Lifestyle <br><span class="text-blue-600 italic">In The Sky</span></h2>
-                
-                <div class="inline-flex bg-slate-100 p-2 rounded-full mt-12">
-                    <button onclick="switchTab('rooftop')" id="btn-rooftop" class="px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all bg-blue-600 text-white shadow-lg">Rooftop Sky-Deck</button>
-                    <button onclick="switchTab('indoor')" id="btn-indoor" class="px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all text-slate-500">Clubhouse & Indoor</button>
-                </div>
+            <div class="text-center mb-12">
+                <span class="text-blue-600 font-black uppercase tracking-[0.4em] text-[10px]">Hyper-Location</span>
+                <h2 class="heading-xl text-4xl md:text-5xl mt-4">Everything Within <span class="text-blue-600">Reach</span></h2>
             </div>
-
-            <div id="rooftop" class="tab-content active grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="bg-slate-50 p-10 rounded-[2.5rem] text-center border border-transparent hover:border-blue-100 hover:bg-white hover:shadow-2xl transition-all group">
-                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform">
-                        <i data-lucide="waves" class="text-blue-600"></i>
-                    </div>
-                    <h5 class="font-bold text-lg mb-2 text-slate-800">Sky Jacuzzi</h5>
-                    <p class="text-xs text-slate-400 font-medium">Unwind under the stars</p>
-                </div>
-                <div class="bg-slate-50 p-10 rounded-[2.5rem] text-center border border-transparent hover:border-blue-100 hover:bg-white hover:shadow-2xl transition-all group">
-                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform">
-                        <i data-lucide="telescope" class="text-blue-600"></i>
-                    </div>
-                    <h5 class="font-bold text-lg mb-2 text-slate-800">Observation Deck</h5>
-                    <p class="text-xs text-slate-400 font-medium">Sahyadri hill views</p>
-                </div>
-                <div class="bg-slate-50 p-10 rounded-[2.5rem] text-center border border-transparent hover:border-blue-100 hover:bg-white hover:shadow-2xl transition-all group">
-                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform">
-                        <i data-lucide="clapperboard" class="text-blue-600"></i>
-                    </div>
-                    <h5 class="font-bold text-lg mb-2 text-slate-800">Sky Cinema</h5>
-                    <p class="text-xs text-slate-400 font-medium">Outdoor screening</p>
-                </div>
-                <div class="bg-slate-50 p-10 rounded-[2.5rem] text-center border border-transparent hover:border-blue-100 hover:bg-white hover:shadow-2xl transition-all group">
-                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform">
-                        <i data-lucide="flame" class="text-blue-600"></i>
-                    </div>
-                    <h5 class="font-bold text-lg mb-2 text-slate-800">Bonfire Zone</h5>
-                    <p class="text-xs text-slate-400 font-medium">Cozy community gatherings</p>
-                </div>
+            <div class="relative rounded-3xl overflow-hidden shadow-2xl h-[500px]">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.5!2d73.8!3d18.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf2e6742a6a5%3A0x8b2a5c8e4f3d2b1c!2sWarje%2C%20Pune!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy">
+                </iframe>
             </div>
-
-            <div id="indoor" class="tab-content grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="bg-slate-50 p-10 rounded-[2.5rem] text-center transition-all group">
-                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm">
-                        <i data-lucide="dumbbell" class="text-blue-600"></i>
-                    </div>
-                    <h5 class="font-bold text-lg text-slate-800">Elite Gym</h5>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                <div class="bg-white p-4 rounded-xl text-center">
+                    <i data-lucide="shopping-bag" class="w-6 h-6 text-blue-600 mx-auto mb-2"></i>
+                    <p class="font-bold text-sm">Phoenix Mall</p>
+                    <p class="text-xs text-slate-500">12 mins</p>
                 </div>
-                <div class="bg-slate-50 p-10 rounded-[2.5rem] text-center transition-all group">
-                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm">
-                        <i data-lucide="monitor" class="text-blue-600"></i>
-                    </div>
-                    <h5 class="font-bold text-lg text-slate-800">Work Pods</h5>
+                <div class="bg-white p-4 rounded-xl text-center">
+                    <i data-lucide="school" class="w-6 h-6 text-blue-600 mx-auto mb-2"></i>
+                    <p class="font-bold text-sm">MIT World Peace</p>
+                    <p class="text-xs text-slate-500">8 mins</p>
                 </div>
-                <div class="bg-slate-50 p-10 rounded-[2.5rem] text-center transition-all group">
-                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm">
-                        <i data-lucide="users" class="text-blue-600"></i>
-                    </div>
-                    <h5 class="font-bold text-lg text-slate-800">Party Hall</h5>
+                <div class="bg-white p-4 rounded-xl text-center">
+                    <i data-lucide="hospital" class="w-6 h-6 text-blue-600 mx-auto mb-2"></i>
+                    <p class="font-bold text-sm">Aditya Birla</p>
+                    <p class="text-xs text-slate-500">10 mins</p>
                 </div>
-                <div class="bg-slate-50 p-10 rounded-[2.5rem] text-center transition-all group">
-                    <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm">
-                        <i data-lucide="baby" class="text-blue-600"></i>
-                    </div>
-                    <h5 class="font-bold text-lg text-slate-800">Kid's Play Area</h5>
+                <div class="bg-white p-4 rounded-xl text-center">
+                    <i data-lucide="train" class="w-6 h-6 text-blue-600 mx-auto mb-2"></i>
+                    <p class="font-bold text-sm">Warje Metro</p>
+                    <p class="text-xs text-slate-500">5 mins</p>
                 </div>
             </div>
         </div>
     </section>
 
+<section id="amenities" class="py-32 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-20">
+            <span class="text-blue-600 font-black uppercase tracking-[0.4em] text-[10px]">Indulgences</span>
+            <h2 class="heading-xl text-4xl md:text-6xl mt-4">Curated Lifestyle <br><span class="text-blue-600 italic">In The Sky</span></h2>
+            
+            <div class="inline-flex bg-slate-100 p-2 rounded-full mt-12">
+                <button type="button" onclick="switchAmenitiesTab('rooftop')" id="btn-rooftop" class="px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all bg-blue-600 text-white shadow-lg">Rooftop Sky-Deck</button>
+                <button type="button" onclick="switchAmenitiesTab('indoor')" id="btn-indoor" class="px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all text-slate-500 hover:bg-slate-200">Clubhouse & Indoor</button>
+            </div>
+        </div>
+
+        <!-- Rooftop Amenities -->
+        <div id="rooftop-amenities" class="amenities-grid" style="display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 2rem;">
+            <div class="bg-slate-50 p-10 rounded-[2.5rem] text-center border border-transparent hover:border-blue-100 hover:bg-white hover:shadow-2xl transition-all group">
+                <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                    <i data-lucide="waves" class="text-blue-600 w-8 h-8"></i>
+                </div>
+                <h5 class="font-bold text-lg mb-2 text-slate-800">Sky Jacuzzi</h5>
+                <p class="text-xs text-slate-400 font-medium">Unwind under the stars</p>
+            </div>
+            <div class="bg-slate-50 p-10 rounded-[2.5rem] text-center border border-transparent hover:border-blue-100 hover:bg-white hover:shadow-2xl transition-all group">
+                <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                    <i data-lucide="telescope" class="text-blue-600 w-8 h-8"></i>
+                </div>
+                <h5 class="font-bold text-lg mb-2 text-slate-800">Observation Deck</h5>
+                <p class="text-xs text-slate-400 font-medium">Sahyadri hill views</p>
+            </div>
+            <div class="bg-slate-50 p-10 rounded-[2.5rem] text-center border border-transparent hover:border-blue-100 hover:bg-white hover:shadow-2xl transition-all group">
+                <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                    <i data-lucide="clapperboard" class="text-blue-600 w-8 h-8"></i>
+                </div>
+                <h5 class="font-bold text-lg mb-2 text-slate-800">Sky Cinema</h5>
+                <p class="text-xs text-slate-400 font-medium">Outdoor screening</p>
+            </div>
+            <div class="bg-slate-50 p-10 rounded-[2.5rem] text-center border border-transparent hover:border-blue-100 hover:bg-white hover:shadow-2xl transition-all group">
+                <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                    <i data-lucide="flame" class="text-blue-600 w-8 h-8"></i>
+                </div>
+                <h5 class="font-bold text-lg mb-2 text-slate-800">Bonfire Zone</h5>
+                <p class="text-xs text-slate-400 font-medium">Cozy community gatherings</p>
+            </div>
+        </div>
+
+        <!-- Indoor & Clubhouse Amenities -->
+        <div id="indoor-amenities" class="amenities-grid" style="display: none; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 2rem;">
+            <div class="bg-slate-50 p-10 rounded-[2.5rem] text-center transition-all group hover:border-blue-100 hover:bg-white hover:shadow-2xl border border-transparent">
+                <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                    <i data-lucide="dumbbell" class="text-blue-600 w-8 h-8"></i>
+                </div>
+                <h5 class="font-bold text-lg text-slate-800">Elite Gym</h5>
+                <p class="text-xs text-slate-400 font-medium">State-of-the-art equipment</p>
+            </div>
+            <div class="bg-slate-50 p-10 rounded-[2.5rem] text-center transition-all group hover:border-blue-100 hover:bg-white hover:shadow-2xl border border-transparent">
+                <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                    <i data-lucide="monitor" class="text-blue-600 w-8 h-8"></i>
+                </div>
+                <h5 class="font-bold text-lg text-slate-800">Work Pods</h5>
+                <p class="text-xs text-slate-400 font-medium">Co-working spaces with high-speed WiFi</p>
+            </div>
+            <div class="bg-slate-50 p-10 rounded-[2.5rem] text-center transition-all group hover:border-blue-100 hover:bg-white hover:shadow-2xl border border-transparent">
+                <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                    <i data-lucide="users" class="text-blue-600 w-8 h-8"></i>
+                </div>
+                <h5 class="font-bold text-lg text-slate-800">Party Hall</h5>
+                <p class="text-xs text-slate-400 font-medium">Celebrate special moments</p>
+            </div>
+            <div class="bg-slate-50 p-10 rounded-[2.5rem] text-center transition-all group hover:border-blue-100 hover:bg-white hover:shadow-2xl border border-transparent">
+                <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                    <i data-lucide="baby" class="text-blue-600 w-8 h-8"></i>
+                </div>
+                <h5 class="font-bold text-lg text-slate-800">Kid's Play Area</h5>
+                <p class="text-xs text-slate-400 font-medium">Safe and fun environment</p>
+            </div>
+            <div class="bg-slate-50 p-10 rounded-[2.5rem] text-center transition-all group hover:border-blue-100 hover:bg-white hover:shadow-2xl border border-transparent">
+                <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                    <i data-lucide="book-open" class="text-blue-600 w-8 h-8"></i>
+                </div>
+                <h5 class="font-bold text-lg text-slate-800">Library Lounge</h5>
+                <p class="text-xs text-slate-400 font-medium">Peaceful reading corner</p>
+            </div>
+            <div class="bg-slate-50 p-10 rounded-[2.5rem] text-center transition-all group hover:border-blue-100 hover:bg-white hover:shadow-2xl border border-transparent">
+                <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                    <i data-lucide="gamepad-2" class="text-blue-600 w-8 h-8"></i>
+                </div>
+                <h5 class="font-bold text-lg text-slate-800">Indoor Games</h5>
+                <p class="text-xs text-slate-400 font-medium">Carrom, chess, table tennis</p>
+            </div>
+            <div class="bg-slate-50 p-10 rounded-[2.5rem] text-center transition-all group hover:border-blue-100 hover:bg-white hover:shadow-2xl border border-transparent">
+                <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                    <i data-lucide="yoga" class="text-blue-600 w-8 h-8"></i>
+                </div>
+                <h5 class="font-bold text-lg text-slate-800">Yoga & Meditation</h5>
+                <p class="text-xs text-slate-400 font-medium">Zen zone for mindfulness</p>
+            </div>
+            <div class="bg-slate-50 p-10 rounded-[2.5rem] text-center transition-all group hover:border-blue-100 hover:bg-white hover:shadow-2xl border border-transparent">
+                <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                    <i data-lucide="droplets" class="text-blue-600 w-8 h-8"></i>
+                </div>
+                <h5 class="font-bold text-lg text-slate-800">Swimming Pool</h5>
+                <p class="text-xs text-slate-400 font-medium">Temperature-controlled pool</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+/* Responsive grid styles */
+@media (min-width: 640px) {
+    .amenities-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (min-width: 1024px) {
+    .amenities-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    }
+}
+
+/* Animation for grid items */
+.amenities-grid > div {
+    animation: fadeInUp 0.5s ease backwards;
+}
+
+.amenities-grid > div:nth-child(1) { animation-delay: 0.05s; }
+.amenities-grid > div:nth-child(2) { animation-delay: 0.1s; }
+.amenities-grid > div:nth-child(3) { animation-delay: 0.15s; }
+.amenities-grid > div:nth-child(4) { animation-delay: 0.2s; }
+.amenities-grid > div:nth-child(5) { animation-delay: 0.25s; }
+.amenities-grid > div:nth-child(6) { animation-delay: 0.3s; }
+.amenities-grid > div:nth-child(7) { animation-delay: 0.35s; }
+.amenities-grid > div:nth-child(8) { animation-delay: 0.4s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+
+<script>
+// Global function for switching amenities tabs
+function switchAmenitiesTab(tabType) {
+    console.log('Switching to:', tabType); // Debug log
+    
+    const rooftopGrid = document.getElementById('rooftop-amenities');
+    const indoorGrid = document.getElementById('indoor-amenities');
+    const rooftopBtn = document.getElementById('btn-rooftop');
+    const indoorBtn = document.getElementById('btn-indoor');
+    
+    if (!rooftopGrid || !indoorGrid || !rooftopBtn || !indoorBtn) {
+        console.error('Elements not found');
+        return;
+    }
+    
+    if (tabType === 'rooftop') {
+        // Show rooftop amenities, hide indoor
+        rooftopGrid.style.display = 'grid';
+        indoorGrid.style.display = 'none';
+        
+        // Update button styles
+        rooftopBtn.className = "px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all bg-blue-600 text-white shadow-lg";
+        indoorBtn.className = "px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all text-slate-500 hover:bg-slate-200";
+        
+    } else if (tabType === 'indoor') {
+        // Show indoor amenities, hide rooftop
+        indoorGrid.style.display = 'grid';
+        rooftopGrid.style.display = 'none';
+        
+        // Update button styles
+        indoorBtn.className = "px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all bg-blue-600 text-white shadow-lg";
+        rooftopBtn.className = "px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all text-slate-500 hover:bg-slate-200";
+    }
+    
+    // Re-initialize Lucide icons
+    if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        setTimeout(() => {
+            lucide.createIcons();
+        }, 50);
+    }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Page loaded, initializing amenities...');
+    
+    // Make sure rooftop is active by default
+    const rooftopGrid = document.getElementById('rooftop-amenities');
+    const indoorGrid = document.getElementById('indoor-amenities');
+    
+    if (rooftopGrid && indoorGrid) {
+        rooftopGrid.style.display = 'grid';
+        indoorGrid.style.display = 'none';
+    }
+    
+    // Initialize icons
+    if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+    }
+    
+    // Add click event listeners to buttons as backup
+    const rooftopBtn = document.getElementById('btn-rooftop');
+    const indoorBtn = document.getElementById('btn-indoor');
+    
+    if (rooftopBtn) {
+        rooftopBtn.addEventListener('click', function() {
+            switchAmenitiesTab('rooftop');
+        });
+    }
+    
+    if (indoorBtn) {
+        indoorBtn.addEventListener('click', function() {
+            switchAmenitiesTab('indoor');
+        });
+    }
+});
+</script>
+
     <section id="plans" class="py-32 bg-slate-950 text-white">
         <div class="max-w-7xl mx-auto px-6">
             <h2 class="heading-xl text-4xl md:text-6xl text-center mb-20">Intelligent Spaces, <br><span class="text-blue-500 italic">Beautifully Crafted.</span></h2>
             
-            <div class="grid md:grid-cols-2 gap-10">
-                <div class="dark-card p-12 rounded-[3.5rem] group hover:border-blue-600 transition-all duration-500">
-                    <div class="flex justify-between items-start mb-12">
-                        <div>
-                            <span class="text-blue-500 font-bold uppercase tracking-widest text-[10px]">Wing A - Luxury</span>
-                            <h3 class="text-4xl font-black mt-2 italic">2 BHK <span class="font-light not-italic">Elite</span></h3>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-2xl font-bold">726</p>
-                            <p class="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Sq. Ft. Carpet</p>
-                        </div>
+        <div class="grid md:grid-cols-2 gap-10">
+            <!-- 2 BHK Card -->
+            <div class="dark-card p-12 rounded-[3.5rem] group hover:border-blue-600 transition-all duration-500">
+                <div class="flex justify-between items-start mb-12">
+                    <div>
+                        <span class="text-blue-500 font-bold uppercase tracking-widest text-[10px]">Wing A - Luxury</span>
+                        <h3 class="text-4xl font-black mt-2 italic">2 BHK <span class="font-light not-italic">Elite</span></h3>
                     </div>
-                    <div class="aspect-video bg-white/5 rounded-3xl mb-12 flex flex-col items-center justify-center border border-white/5 group-hover:bg-blue-600/5 transition-all">
-                        <i data-lucide="image" class="w-10 h-10 text-white/10 mb-4"></i>
-                        <p class="text-white/20 font-bold uppercase tracking-widest text-xs">Floor Plan Preview</p>
+                    <div class="text-right">
+                        <p class="text-2xl font-bold">726</p>
+                        <p class="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Sq. Ft. Carpet</p>
                     </div>
-                    <button class="w-full bg-white text-black py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-xl">Download Floor Plan</button>
                 </div>
-
-                <div class="dark-card p-12 rounded-[3.5rem] group hover:border-blue-600 transition-all duration-500">
-                    <div class="flex justify-between items-start mb-12">
-                        <div>
-                            <span class="text-blue-500 font-bold uppercase tracking-widest text-[10px]">Wing B - Premium</span>
-                            <h3 class="text-4xl font-black mt-2 italic">3 BHK <span class="font-light not-italic">Imperial</span></h3>
-                        </div>
-                        <div class="text-right">
-                            <p class="text-2xl font-bold">1149</p>
-                            <p class="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Sq. Ft. Carpet</p>
-                        </div>
+                
+                <!-- Floor Plan Image Container for 2 BHK -->
+                <div class="relative aspect-video bg-gradient-to-br from-white/5 to-white/0 rounded-3xl mb-12 border border-white/10 group-hover:border-blue-500/50 transition-all overflow-hidden cursor-pointer" onclick="openFloorPlanModal('/assets/home_structure.jpeg', '2 BHK Elite Floor Plan')">
+                    <img src="/assets/home_structure.jpeg" 
+                        alt="2 BHK Elite Floor Plan"
+                        class="w-full h-full object-contain p-6 transition-transform duration-700 group-hover:scale-110">
+                    
+                    <!-- Hover Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end justify-center pb-6">
+                        <span class="bg-blue-600 text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <i data-lucide="maximize-2" class="inline w-4 h-4 mr-2"></i>
+                            View Full Plan
+                        </span>
                     </div>
-                    <div class="aspect-video bg-white/5 rounded-3xl mb-12 flex flex-col items-center justify-center border border-white/5 group-hover:bg-blue-600/5 transition-all">
-                        <i data-lucide="image" class="w-10 h-10 text-white/10 mb-4"></i>
-                        <p class="text-white/20 font-bold uppercase tracking-widest text-xs">Floor Plan Preview</p>
+                    
+                    <!-- Preview Badge -->
+                    <div class="absolute top-3 right-3 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full">
+                        <p class="text-white/70 font-bold uppercase tracking-widest text-[8px]">Floor Plan</p>
                     </div>
-                    <button class="w-full bg-white text-black py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-xl">Download Floor Plan</button>
                 </div>
+                
+                <button class="floorPlanBtn w-full bg-white text-black py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-xl flex items-center justify-center gap-2 group/btn" data-unit="2 BHK Elite">
+                    <i data-lucide="download" class="w-4 h-4 transition-transform group-hover/btn:translate-y-0.5"></i>
+                    Download Floor Plan
+                </button>
             </div>
+
+            <!-- 3 BHK Card -->
+            <div class="dark-card p-12 rounded-[3.5rem] group hover:border-blue-600 transition-all duration-500">
+                <div class="flex justify-between items-start mb-12">
+                    <div>
+                        <span class="text-blue-500 font-bold uppercase tracking-widest text-[10px]">Wing B - Premium</span>
+                        <h3 class="text-4xl font-black mt-2 italic">3 BHK <span class="font-light not-italic">Imperial</span></h3>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-2xl font-bold">1149</p>
+                        <p class="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Sq. Ft. Carpet</p>
+                    </div>
+                </div>
+                
+                <!-- Floor Plan Image Container for 3 BHK -->
+                <div class="relative aspect-video bg-gradient-to-br from-white/5 to-white/0 rounded-3xl mb-12 border border-white/10 group-hover:border-blue-500/50 transition-all overflow-hidden cursor-pointer" onclick="openFloorPlanModal('/assets/3bhk_plan.jpeg', '3 BHK Imperial Floor Plan')">
+                    <img src="/assets/3bhk_plan.jpeg" 
+                        alt="3 BHK Imperial Floor Plan" 
+                        class="w-full h-full object-contain p-6 transition-transform duration-700 group-hover:scale-110">
+                    
+                    <!-- Hover Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end justify-center pb-6">
+                        <span class="bg-blue-600 text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            <i data-lucide="maximize-2" class="inline w-4 h-4 mr-2"></i>
+                            View Full Plan
+                        </span>
+                    </div>
+                    
+                    <!-- Preview Badge -->
+                    <div class="absolute top-3 right-3 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full">
+                        <p class="text-white/70 font-bold uppercase tracking-widest text-[8px]">Floor Plan</p>
+                    </div>
+                </div>
+                
+                <button class="floorPlanBtn w-full bg-white text-black py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-xl flex items-center justify-center gap-2 group/btn" data-unit="3 BHK Imperial">
+                    <i data-lucide="download" class="w-4 h-4 transition-transform group-hover/btn:translate-y-0.5"></i>
+                    Download Floor Plan
+                </button>
+            </div>
+        </div>
         </div>
     </section>
 
@@ -344,6 +642,384 @@
         </div>
     </section>
 
+<!-- Gallery Section -->
+<section id="gallery" class="py-32 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <span class="text-blue-600 font-black uppercase tracking-[0.4em] text-[10px]">Visual Journey</span>
+            <h2 class="heading-xl text-4xl md:text-6xl mt-4">Experience <span class="text-blue-600">Sky Square</span></h2>
+            <p class="text-slate-500 mt-4 max-w-2xl mx-auto">Explore our premium residences through stunning visuals and virtual walkthrough</p>
+        </div>
+
+        <!-- Gallery Filter Tabs -->
+        <div class="flex justify-center mb-12">
+            <div class="inline-flex bg-white p-1.5 rounded-full shadow-md">
+                <button onclick="filterGallery('all')" id="filter-all" class="gallery-filter-btn px-6 py-2.5 rounded-full text-sm font-bold transition-all bg-blue-600 text-white">All Photos</button>
+                <button onclick="filterGallery('exterior')" id="filter-exterior" class="gallery-filter-btn px-6 py-2.5 rounded-full text-sm font-bold transition-all text-slate-600 hover:bg-slate-100">Exterior</button>
+                <button onclick="filterGallery('interior')" id="filter-interior" class="gallery-filter-btn px-6 py-2.5 rounded-full text-sm font-bold transition-all text-slate-600 hover:bg-slate-100">Interior</button>
+                <button onclick="filterGallery('amenities')" id="filter-amenities" class="gallery-filter-btn px-6 py-2.5 rounded-full text-sm font-bold transition-all text-slate-600 hover:bg-slate-100">Amenities</button>
+                <button onclick="openVideoModal()" class="px-6 py-2.5 rounded-full text-sm font-bold transition-all bg-red-600 text-white hover:bg-red-700 shadow-md ml-2">
+                    <i data-lucide="play-circle" class="inline w-4 h-4 mr-1"></i> Watch Video
+                </button>
+            </div>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="gallery-grid">
+            <!-- Exterior Photos -->
+            <div class="gallery-item exterior group cursor-pointer" onclick="openImageModal('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800', 'Sky Square Exterior View')">
+                <div class="relative overflow-hidden rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-500">
+                    <img src="/assets/outside.jpeg" 
+                         alt="Sky Square Exterior" 
+                         class="w-full h-72 object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end justify-start p-6">
+                        <div>
+                            <p class="text-white font-bold text-lg">Exterior View</p>
+                            <p class="text-white/80 text-sm">Modern architecture with scenic views</p>
+                        </div>
+                    </div>
+                    <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                        <i data-lucide="maximize-2" class="w-4 h-4 text-white"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item exterior group cursor-pointer" onclick="openImageModal('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800', 'Building Elevation')">
+                <div class="relative overflow-hidden rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-500">
+                    <img src="/assets/building.jpeg" 
+                         alt="Building Elevation" 
+                         class="w-full h-72 object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end justify-start p-6">
+                        <div>
+                            <p class="text-white font-bold text-lg">Stunning Elevation</p>
+                            <p class="text-white/80 text-sm">Contemporary glass facade</p>
+                        </div>
+                    </div>
+                    <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                        <i data-lucide="maximize-2" class="w-4 h-4 text-white"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interior Photos -->
+            <div class="gallery-item interior group cursor-pointer" onclick="openImageModal('https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=800', '2 BHK Living Room')">
+                <div class="relative overflow-hidden rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-500">
+                    <img src="/assets/living_area.jpeg" 
+                         alt="Living Room" 
+                         class="w-full h-72 object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end justify-start p-6">
+                        <div>
+                            <p class="text-white font-bold text-lg">Spacious Living</p>
+                            <p class="text-white/80 text-sm">Premium 2 BHK interior</p>
+                        </div>
+                    </div>
+                    <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                        <i data-lucide="maximize-2" class="w-4 h-4 text-white"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item interior group cursor-pointer" onclick="openImageModal('https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=800', 'Modern Kitchen')">
+                <div class="relative overflow-hidden rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-500">
+                    <img src="/assets/pool.jpeg" 
+                         alt="Pool" 
+                         class="w-full h-72 object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end justify-start p-6">
+                        <div>
+                            <p class="text-white font-bold text-lg">Infinity Pool</p>
+                            <p class="text-white/80 text-sm">Roof-Top Swimming Pools</p>
+                        </div>
+                    </div>
+                    <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                        <i data-lucide="maximize-2" class="w-4 h-4 text-white"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Amenities Photos -->
+            <div class="gallery-item amenities group cursor-pointer" onclick="openImageModal('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?w=800', 'Swimming Pool')">
+                <div class="relative overflow-hidden rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-500">
+                    <img src="/assets/hall.jpeg" 
+                         alt="living area" 
+                         class="w-full h-72 object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end justify-start p-6">
+                        <div>
+                            <p class="text-white font-bold text-lg">Classy Leaving Area</p>
+                            <p class="text-white/80 text-sm">Spacious halls and leaving area</p>
+                        </div>
+                    </div>
+                    <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                        <i data-lucide="maximize-2" class="w-4 h-4 text-white"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item amenities group cursor-pointer" onclick="openImageModal('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800', 'State-of-the-art Gym')">
+                <div class="relative overflow-hidden rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-500">
+                    <img src="/assets/gym.jpeg" 
+                         alt="Gym" 
+                         class="w-full h-72 object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end justify-start p-6">
+                        <div>
+                            <p class="text-white font-bold text-lg">Elite Gymnasium</p>
+                            <p class="text-white/80 text-sm">Modern fitness equipment</p>
+                        </div>
+                    </div>
+                    <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                        <i data-lucide="maximize-2" class="w-4 h-4 text-white"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Children's Play Area -->
+            <div class="gallery-item amenities group cursor-pointer" onclick="openImageModal('https://images.unsplash.com/photo-1582643153533-ee1c0bafd368?w=800', 'Children\'s Play Area')">
+                <div class="relative overflow-hidden rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-500">
+                    <img src="/assets/children_area.jpeg" 
+                        alt="Children's Play Area" 
+                        class="w-full h-72 object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end justify-start p-6">
+                        <div>
+                            <p class="text-white font-bold text-lg">Kids Adventure Zone</p>
+                            <p class="text-white/80 text-sm">Safe & fun-filled playground</p>
+                        </div>
+                    </div>
+                    <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                        <i data-lucide="maximize-2" class="w-4 h-4 text-white"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Outside View of Building / Exterior Elevation -->
+            <div class="gallery-item exterior group cursor-pointer" onclick="openImageModal('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800', 'Building Exterior')">
+                <div class="relative overflow-hidden rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-500">
+                    <img src="/assets/outside.jpeg" 
+                        alt="Building Exterior" 
+                        class="w-full h-72 object-cover transition-transform duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end justify-start p-6">
+                        <div>
+                            <p class="text-white font-bold text-lg">Stunning Building Elevation</p>
+                            <p class="text-white/80 text-sm">Modern architecture with glass facade</p>
+                        </div>
+                    </div>
+                    <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full">
+                        <i data-lucide="maximize-2" class="w-4 h-4 text-white"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- Image Modal for Photos -->
+<div id="imageModal" class="fixed inset-0 z-[1100] hidden items-center justify-center bg-black/95 backdrop-blur-md" onclick="closeImageModal()">
+    <div class="relative max-w-6xl w-full mx-4" onclick="event.stopPropagation()">
+        <button onclick="closeImageModal()" 
+                class="absolute -top-14 right-0 bg-red-600 hover:bg-red-700 text-white rounded-full p-3 transition-all duration-300 shadow-xl hover:scale-110 z-10">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <div class="bg-black/50 rounded-2xl p-4">
+            <img id="modalImage" src="" alt="Gallery Image" class="w-full h-auto max-h-[80vh] object-contain rounded-xl">
+        </div>
+        <p id="modalImageTitle" class="text-white text-center mt-4 font-bold text-lg"></p>
+        <p class="text-white/40 text-center text-sm mt-2">Click outside or press ESC to close</p>
+    </div>
+</div>
+
+<!-- Video Modal -->
+<div id="videoModal" class="fixed inset-0 z-[1100] hidden items-center justify-center bg-black/95 backdrop-blur-md" onclick="closeVideoModal()">
+    <div class="relative max-w-5xl w-full mx-4" onclick="event.stopPropagation()">
+        <button onclick="closeVideoModal()" 
+                class="absolute -top-14 right-0 bg-red-600 hover:bg-red-700 text-white rounded-full p-3 transition-all duration-300 shadow-xl hover:scale-110 z-10">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <div class="bg-black/50 rounded-2xl overflow-hidden aspect-video">
+            <video id="galleryVideo" class="w-full h-full" controls autoplay>
+                <source src="/assets/sky-square-tour.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <p class="text-white text-center mt-4 font-bold text-lg">Sky Square Virtual Tour</p>
+        <p class="text-white/40 text-center text-sm mt-2">Experience the luxury lifestyle</p>
+    </div>
+</div>
+
+<style>
+/* Gallery styles */
+.gallery-item {
+    cursor: pointer;
+}
+
+.gallery-filter-btn {
+    transition: all 0.3s ease;
+}
+
+/* Modal animations */
+#imageModal, #videoModal {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Hide scrollbar when modal is open */
+body.modal-open {
+    overflow: hidden;
+}
+</style>
+
+<script>
+// Image Modal Functions
+function openImageModal(imageUrl, title) {
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('modalImageTitle');
+    
+    if (modalImage && modalTitle) {
+        modalImage.src = imageUrl;
+        modalTitle.textContent = title;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.classList.add('modal-open');
+        
+        // Re-initialize icons
+        setTimeout(() => lucide.createIcons(), 100);
+    }
+}
+
+function closeImageModal() {
+    const modal = document.getElementById('imageModal');
+    if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.classList.remove('modal-open');
+    }
+}
+
+// Video Modal Functions
+function openVideoModal() {
+    const modal = document.getElementById('videoModal');
+    const video = document.getElementById('galleryVideo');
+    
+    if (modal && video) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.classList.add('modal-open');
+        
+        // Load and play video
+        video.load();
+        video.play().catch(e => console.log('Video play error:', e));
+        
+        // Re-initialize icons
+        setTimeout(() => lucide.createIcons(), 100);
+    }
+}
+
+function closeVideoModal() {
+    const modal = document.getElementById('videoModal');
+    const video = document.getElementById('galleryVideo');
+    
+    if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.classList.remove('modal-open');
+        
+        // Pause video when closing
+        if (video) {
+            video.pause();
+            video.currentTime = 0;
+        }
+    }
+}
+
+// Gallery Filter Function
+function filterGallery(category) {
+    const items = document.querySelectorAll('.gallery-item');
+    const buttons = document.querySelectorAll('.gallery-filter-btn');
+    
+    // Update button styles
+    buttons.forEach(btn => {
+        btn.classList.remove('bg-blue-600', 'text-white');
+        btn.classList.add('text-slate-600', 'hover:bg-slate-100');
+    });
+    
+    const activeBtn = document.getElementById(`filter-${category}`);
+    if (activeBtn) {
+        activeBtn.classList.remove('text-slate-600', 'hover:bg-slate-100');
+        activeBtn.classList.add('bg-blue-600', 'text-white');
+    }
+    
+    // Filter items
+    items.forEach(item => {
+        if (category === 'all') {
+            item.style.display = 'block';
+            setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'scale(1)';
+            }, 10);
+        } else if (item.classList.contains(category)) {
+            item.style.display = 'block';
+            setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'scale(1)';
+            }, 10);
+        } else {
+            item.style.opacity = '0';
+            item.style.transform = 'scale(0.8)';
+            setTimeout(() => {
+                item.style.display = 'none';
+            }, 300);
+        }
+    });
+}
+
+// Close modals with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeImageModal();
+        closeVideoModal();
+    }
+});
+
+// Initialize gallery on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Make sure all gallery items are visible
+    filterGallery('all');
+    
+    // Initialize Lucide icons
+    if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+    }
+});
+
+// Handle video error fallback
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.getElementById('galleryVideo');
+    if (video) {
+        video.onerror = function() {
+            console.log('Video not found, using YouTube embed fallback');
+            const videoContainer = document.querySelector('#videoModal .bg-black\\/50');
+            if (videoContainer) {
+                videoContainer.innerHTML = `
+                    <iframe 
+                        width="100%" 
+                        height="100%" 
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" 
+                        title="Sky Square Virtual Tour" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        class="w-full h-full">
+                    </iframe>
+                `;
+            }
+        };
+    }
+});
+</script>
+
     <footer class="bg-slate-50 pt-32 pb-12">
         <div class="max-w-7xl mx-auto px-6">
             <div class="bg-white p-12 md:p-20 rounded-[4rem] shadow-2xl shadow-blue-100 border border-slate-100 -mt-56 relative z-10">
@@ -364,16 +1040,16 @@
                         </div>
                     </div>
                     
-                    <form class="space-y-6 bg-slate-50 p-10 rounded-[2.5rem]">
+                    <form id="callbackFormFooter" class="space-y-6 bg-slate-50 p-10 rounded-[2.5rem]">
                         <div class="space-y-2">
                             <label class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 ml-2">Full Name</label>
-                            <input type="text" placeholder="John Doe" class="w-full p-5 bg-white border border-slate-200 rounded-2xl focus:border-blue-600 outline-none transition-all">
+                            <input type="text" id="callbackName" placeholder="John Doe" class="w-full p-5 bg-white border border-slate-200 rounded-2xl focus:border-blue-600 outline-none transition-all" required>
                         </div>
                         <div class="space-y-2">
                             <label class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 ml-2">Contact Number</label>
-                            <input type="tel" placeholder="+91 00000 00000" class="w-full p-5 bg-white border border-slate-200 rounded-2xl focus:border-blue-600 outline-none transition-all">
+                            <input type="tel" id="callbackPhone" placeholder="+91 00000 00000" class="w-full p-5 bg-white border border-slate-200 rounded-2xl focus:border-blue-600 outline-none transition-all" required>
                         </div>
-                        <button class="w-full blue-gradient text-white py-5 rounded-2xl font-black uppercase tracking-widest shadow-xl shadow-blue-200 hover:scale-[1.02] active:scale-95 transition-all">Request a Callback</button>
+                        <button type="submit" class="w-full blue-gradient text-white py-5 rounded-2xl font-black uppercase tracking-widest shadow-xl shadow-blue-200 hover:scale-[1.02] active:scale-95 transition-all">Request a Callback</button>
                     </form>
                 </div>
             </div>
@@ -393,41 +1069,368 @@
         </div>
     </footer>
 
+    <!-- Floor Plan Zoom Modal with Close Button -->
+    <div id="floorPlanModal" class="fixed inset-0 z-[1000] hidden items-center justify-center bg-black/95 backdrop-blur-md" onclick="closeFloorPlanModal()">
+        <div class="relative max-w-6xl w-full mx-4 p-4" onclick="event.stopPropagation()">
+            <!-- Close Button - Multiple Styles for Better Visibility -->
+            <button onclick="closeFloorPlanModal()" 
+                    class="absolute -top-14 right-0 md:-top-12 md:right-0 bg-red-600 hover:bg-red-700 text-white rounded-full p-3 transition-all duration-300 shadow-xl hover:scale-110 z-10 group">
+                <i data-lucide="x" class="w-6 h-6 group-hover:rotate-90 transition-transform duration-300"></i>
+            </button>
+            
+            <!-- Alternative: Close button inside the modal (optional) -->
+            <button onclick="closeFloorPlanModal()" 
+                    class="absolute top-4 right-4 bg-black/60 hover:bg-red-600 text-white rounded-full p-2 transition-all duration-300 md:hidden">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            
+            <!-- Image Container -->
+            <div class="bg-white/5 rounded-2xl p-4 backdrop-blur-sm">
+                <img id="modalFloorPlanImg" 
+                    src="" 
+                    alt="Floor Plan" 
+                    class="w-full h-auto max-h-[80vh] object-contain rounded-xl shadow-2xl">
+            </div>
+            
+            <!-- Title and Instructions -->
+            <div class="mt-6 text-center">
+                <p id="modalFloorPlanTitle" class="text-white font-bold text-lg mb-2"></p>
+                <p class="text-white/50 text-sm flex items-center justify-center gap-2">
+                    <i data-lucide="mouse-pointer-click" class="w-4 h-4"></i>
+                    Click outside or press ESC to close
+                </p>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Initialize Icons
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Floor Plan Modal Functions
+    function openFloorPlanModal(imgSrc, title) {
+        const modal = document.getElementById('floorPlanModal');
+        const modalImg = document.getElementById('modalFloorPlanImg');
+        const modalTitle = document.getElementById('modalFloorPlanTitle');
+        
+        if (modalImg && modalTitle) {
+            modalImg.src = imgSrc;
+            modalTitle.textContent = title;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            
+            // Prevent body scrolling
+            document.body.classList.add('modal-open');
+            
+            // Re-initialize icons in modal
+            setTimeout(() => lucide.createIcons(), 100);
+        } else {
+            console.error('Modal elements not found');
+            alert('Image viewer temporarily unavailable. Please download the floor plan.');
+        }
+    }
+
+    function closeFloorPlanModal() {
+        const modal = document.getElementById('floorPlanModal');
+        if (modal) {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+            document.body.classList.remove('modal-open');
+        }
+    }
+
+    // Close with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeFloorPlanModal();
+        }
+    });
+
+    // Handle Floor Plan Download Buttons
+    document.querySelectorAll('.floorPlanBtn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            const unit = this.getAttribute('data-unit');
+            showToast(`📄 Downloading ${unit} floor plan...`);
+            
+            // Simulate download - Replace with actual PDF URL
+            const downloadUrl = unit.includes('2 BHK') ? '/assets/2bhk_floor_plan.pdf' : '/assets/3bhk_floor_plan.pdf';
+            
+            // Create temporary link for download
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.download = `Sky_Square_${unit.replace(/ /g, '_')}_Floor_Plan.pdf`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    });
+
+    // Toast notification function
+    function showToast(message) {
+        let toast = document.getElementById('toastMsg');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'toastMsg';
+            toast.className = 'fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-full text-sm font-bold shadow-lg z-[1100] transition-all duration-300 opacity-0 pointer-events-none';
+            document.body.appendChild(toast);
+        }
+        
+        toast.textContent = message;
+        toast.classList.remove('opacity-0');
+        toast.classList.add('opacity-100');
+        
+        setTimeout(() => {
+            toast.classList.remove('opacity-100');
+            toast.classList.add('opacity-0');
+        }, 3000);
+    }
+
+    // Fix for images that fail to load
+    document.querySelectorAll('img').forEach(img => {
+        img.onerror = function() {
+            this.onerror = null;
+            this.src = 'https://placehold.co/800x600/1e293b/3b82f6?text=Floor+Plan+Preview&font=montserrat';
+            this.classList.add('opacity-70');
+        };
+    });
+    </script>
+
+    <style>
+    /* Modal Styles */
+    #floorPlanModal {
+        animation: fadeIn 0.3s ease;
+        z-index: 9999;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    #floorPlanModal .max-w-6xl {
+        animation: scaleIn 0.3s ease;
+    }
+
+    @keyframes scaleIn {
+        from {
+            transform: scale(0.95);
+            opacity: 0;
+        }
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    /* Image container hover effects */
+    .relative.aspect-video {
+        background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+    }
+
+    /* Modal open - prevent body scroll */
+    .modal-open {
+        overflow: hidden;
+    }
+
+    /* Close button hover effects */
+    #floorPlanModal button {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    #floorPlanModal button:hover {
+        transform: scale(1.1);
+    }
+
+    /* Responsive close button */
+    @media (max-width: 768px) {
+        .absolute.-top-14 {
+            top: -50px;
+            right: 10px;
+        }
+        
+        #floorPlanModal .bg-white\/5 {
+            padding: 1rem;
+        }
+    }
+
+    /* Zoom cursor for images */
+    .cursor-pointer {
+        cursor: pointer;
+    }
+
+    /* Smooth transition for modal close button */
+    button svg {
+        transition: transform 0.3s ease;
+    }
+
+    button:hover svg {
+        transform: rotate(90deg);
+    }
+    </style>
+
+    <!-- DYNAMIC MODAL (for both Enquire and Callback) -->
+    <div id="dynamicModal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="modalTitle" class="text-2xl font-black text-slate-900">Quick Enquiry</h3>
+                <button id="closeModalBtn" class="text-slate-400 hover:text-slate-800 transition-all text-2xl leading-none">&times;</button>
+            </div>
+            <form id="modalEnquiryForm">
+                <div class="mb-5">
+                    <label class="block text-xs font-black uppercase tracking-wider text-slate-500 mb-2">Full Name *</label>
+                    <input type="text" id="modalName" placeholder="Your full name" class="w-full p-4 border border-slate-200 rounded-2xl focus:border-blue-600 transition" required>
+                </div>
+                <div class="mb-5">
+                    <label class="block text-xs font-black uppercase tracking-wider text-slate-500 mb-2">Mobile Number *</label>
+                    <input type="tel" id="modalPhone" placeholder="+91" class="w-full p-4 border border-slate-200 rounded-2xl focus:border-blue-600 transition" required>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-xs font-black uppercase tracking-wider text-slate-500 mb-2">Preferred Unit (Optional)</label>
+                    <select id="modalUnit" class="w-full p-4 border border-slate-200 rounded-2xl bg-white">
+                        <option value="2 BHK Elite">2 BHK Elite</option>
+                        <option value="3 BHK Imperial">3 BHK Imperial</option>
+                        <option value="Any">Any / Flexible</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full blue-gradient text-white py-4 rounded-2xl font-black uppercase tracking-widest text-sm hover:shadow-xl transition-all">Submit Enquiry</button>
+            </form>
+            <p class="text-[10px] text-center text-slate-400 mt-5">*Our team will connect within 30 mins</p>
+        </div>
+    </div>
+
+    <div id="toastMsg" class="toast-message">✨ Enquiry received! We'll call you soon.</div>
+
+    <script>
         lucide.createIcons();
 
-        // Optimized Tab Switching
+        // Tab switching logic
         function switchTab(tabId) {
-            // Content
-            document.querySelectorAll('.tab-content').forEach(c => {
-                c.classList.remove('active');
-            });
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
-
-            // Buttons
-            const rooftopBtn = document.getElementById('btn-rooftop');
-            const indoorBtn = document.getElementById('btn-indoor');
-
+            const btnR = document.getElementById('btn-rooftop'), btnI = document.getElementById('btn-indoor');
             if(tabId === 'rooftop') {
-                rooftopBtn.className = "px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all bg-blue-600 text-white shadow-lg";
-                indoorBtn.className = "px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all text-slate-500";
+                btnR.className = "px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all bg-blue-600 text-white shadow-lg";
+                btnI.className = "px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all text-slate-500";
             } else {
-                indoorBtn.className = "px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all bg-blue-600 text-white shadow-lg";
-                rooftopBtn.className = "px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all text-slate-500";
+                btnI.className = "px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all bg-blue-600 text-white shadow-lg";
+                btnR.className = "px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all text-slate-500";
             }
         }
+        window.switchTab = switchTab;
 
-        // Navbar Scroll Effect
+        // Toast helper
+        function showToast(message = "✓ Request sent! Our advisor will get back shortly.") {
+            const toast = document.getElementById('toastMsg');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2800);
+        }
+
+        // Modal controls
+        const modal = document.getElementById('dynamicModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const closeModal = document.getElementById('closeModalBtn');
+        const modalForm = document.getElementById('modalEnquiryForm');
+
+        function openModal(type = 'enquire') {
+            modalTitle.innerText = type === 'enquire' ? 'Book a Site Visit' : 'Request Callback';
+            modal.classList.add('active');
+        }
+        function closeModalFunc() { modal.classList.remove('active'); }
+
+        closeModal.addEventListener('click', closeModalFunc);
+        modal.addEventListener('click', (e) => { if(e.target === modal) closeModalFunc(); });
+
+        // Enquire buttons (Nav & any extra)
+        const enquireBtns = document.querySelectorAll('#enquireNavBtn, .enquireDynamicBtn');
+        document.getElementById('enquireNavBtn').addEventListener('click', () => openModal('enquire'));
+        
+        // Also any additional buttons with class "enquireNowTrigger" could be added but we attach to main.
+        // Also attach to all floor plan buttons
+        document.querySelectorAll('.floorPlanBtn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const unit = btn.getAttribute('data-unit') || 'Premium Unit';
+                modalTitle.innerText = `Download Floor Plan - ${unit}`;
+                modal.classList.add('active');
+                // Prefill unit in dropdown?
+                const unitSelect = document.getElementById('modalUnit');
+                if(unitSelect && (unit.includes('2 BHK') || unit.includes('3 BHK'))) {
+                    unitSelect.value = unit;
+                }
+            });
+        });
+
+        // Brochure download interaction
+        const brochureBtn = document.getElementById('downloadBrochureBtn');
+        brochureBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            showToast("📄 Download started! Check your device or fill enquiry to get detailed PDF on email.");
+            // Simulate download by creating dummy anchor
+            const a = document.createElement('a');
+            a.href = "data:application/pdf;base64,JVBERi0xLjQKJcOkw7zD0..."; // dummy content to simulate download
+            a.download = "Sky_Square_Warje_Brochure.pdf";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+
+        // Modal form submission
+        modalForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('modalName').value.trim();
+            const phone = document.getElementById('modalPhone').value.trim();
+            const unitPref = document.getElementById('modalUnit').value;
+            if(!name || !phone) {
+                showToast("⚠️ Please enter name & mobile number.");
+                return;
+            }
+            if(phone.length < 8) {
+                showToast("📞 Please enter a valid mobile number.");
+                return;
+            }
+            console.log(`Enquiry: ${name}, ${phone}, Unit: ${unitPref}`);
+            showToast(`✅ Thanks ${name.split(' ')[0]}! Our expert will call you shortly.`);
+            modalForm.reset();
+            closeModalFunc();
+        });
+
+        // Footer callback form
+        const callbackFooter = document.getElementById('callbackFormFooter');
+        if(callbackFooter) {
+            callbackFooter.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const cbName = document.getElementById('callbackName')?.value.trim();
+                const cbPhone = document.getElementById('callbackPhone')?.value.trim();
+                if(!cbName || !cbPhone) {
+                    showToast("Please fill both name and contact details.");
+                    return;
+                }
+                showToast(`📞 Callback requested for ${cbName}. We'll connect ASAP!`);
+                callbackFooter.reset();
+            });
+        }
+
+        // Navbar scroll effect
         window.addEventListener('scroll', () => {
             const nav = document.querySelector('nav');
             if (window.scrollY > 50) {
-                nav.classList.add('py-2', 'shadow-xl');
-                nav.classList.remove('py-4');
+                nav.classList.add('shadow-xl');
+                nav.style.padding = '0.5rem 0';
             } else {
-                nav.classList.remove('py-2', 'shadow-xl');
+                nav.classList.remove('shadow-xl');
+                nav.style.padding = '';
             }
         });
+        
+        // Add a small floating indicator if any dynamic buttons in plans
+        const downloadFloorBtns = document.querySelectorAll('.floorPlanBtn');
+        if(downloadFloorBtns.length) console.log("Floor plan dynamic ready");
     </script>
 </body>
 </html>
