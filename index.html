@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
-    <title>SkySquare Warje | Premium 2 & 3 BHK Homes by SJ Group</title>
+    <title>SkySqure Warje | Premium 2 & 3 BHK Homes by SJ Group</title>
     <meta name="description" content="Discover SkySqure in Warje, Pune. Premium hillside 2 & 3 BHK residences with world-class amenities.">
     <meta name="keywords" content="SkySqure Warje, SJ Group, 2 BHK Warje, 3 BHK Warje, New Projects Pune">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- IMPORTANT: Add EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
     <style>
         * {
@@ -45,51 +43,25 @@
         ::-webkit-scrollbar-thumb { background: #2563eb; border-radius: 10px; }
 
         .modal-overlay {
-            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(6px);
             z-index: 1000;
-        }
-
-        .modal-overlay.active {
             display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
-
-        .success-message, .error-message {
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            text-align: center;
-            animation: slideDown 0.3s ease-out;
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
-
-        .success-message {
-            background: #4caf50;
-            color: white;
-        }
-
-        .error-message {
-            background: #f44336;
-            color: white;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
         .modal-container {
             background: white;
             max-width: 480px;
@@ -99,7 +71,6 @@
             transform: scale(0.95);
             transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
-        
         .modal-overlay.active .modal-container {
             transform: scale(1);
         }
@@ -209,155 +180,19 @@
             overflow: hidden;
         }
         
+        /* Mobile Menu Styles */
         .mobile-menu-btn {
-    display: none;
-    position: fixed;
-    top: 12px;
-    right: 12px;
-    z-index: 1001;
-    background: white;
-    padding: 10px;
-    border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    cursor: pointer;
-    width: 44px;
-    height: 44px;
-    align-items: center;
-    justify-content: center;
-}
-
-.mobile-menu-btn svg {
-    width: 24px;
-    height: 24px;
-    display: block;
-    stroke: #1e293b;
-}
-
-/* Mobile Logo - Show on small screens */
-/* Desktop Logo */
-.desktop_logo {
-    display: flex;
-    align-items: center;
-}
-
-.desktop_logo img {
-    height: 70px;
-    width: auto;
-    object-fit: contain;
-}
-
-.desktop_logo h5{
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    background: linear-gradient(135deg, #1e293b 0%, #2563eb 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    margin: 0;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-}
-
-/* Mobile Logo */
-.mobile-logo {
-    display: none;
-    position: fixed;
-    top: 12px;
-    left: 16px;
-    z-index: 1002;
-    background: #1e293b;
-    padding: 8px 16px;
-    border-radius: 40px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    align-items: center;
-    gap: 10px;
-}
-
-.mobile-logo img {
-    height: 35px;
-    width: auto;
-    /* filter: brightness(0) invert(1); */
-}
-
-.mobile-logo h5 {
-    font-size: 18px;
-    font-weight: 800;
-    color: white;
-    margin: 0;
-}
-
-@media (max-width: 1024px) {
-    .mobile-logo {
-        display: flex !important;
-    }
-}
-
-@media (max-width: 480px) {
-    .mobile-logo {
-        padding: 6px 12px;
-    }
-    .mobile-logo img {
-        height: 28px;
-    }
-    .mobile-logo h5 {
-        font-size: 14px;
-    }
-}
-
-/* Show/Hide based on screen size */
-@media (max-width: 1024px) {
-    .desktop_logo {
-        display: none !important;
-    }
-    
-    .mobile-logo {
-        display: flex !important;
-    }
-}
-
-@media (min-width: 1025px) {
-    .mobile-logo {
-        display: none !important;
-    }
-    
-    .desktop_logo {
-        display: flex !important;
-    }
-}
-
-/* Extra small devices */
-@media (max-width: 480px) {
-    .mobile-logo {
-        top: 10px;
-        left: 12px;
-        padding: 6px 12px;
-    }
-    
-    .mobile-logo img {
-        height: 32px;
-    }
-}
-
-/* Optional hover effects */
-.desktop_logo img:hover {
-    transform: scale(1.02);
-    transition: transform 0.3s ease;
-}
-
-.mobile-logo img:hover {
-    transform: scale(1.02);
-    transition: transform 0.3s ease;
-}
-
-/* Show mobile logo on small screens */
-@media (max-width: 1024px) {
-    .desktop-nav {
-        display: none !important;
-    }
-    .mobile-logo {
-        display: flex !important;
-    }
-}
+            display: none !important;
+            position: fixed;
+            top: 12px;
+            right: 12px;
+            z-index: 1000;
+            background: white;
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
         
         .mobile-menu {
             position: fixed;
@@ -405,6 +240,36 @@
         }
         
         @media (max-width: 1024px) {
+            /* Show mobile logo */
+        .mobile-logo {
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            z-index: 1000;
+            background: white;
+            padding: 8px 12px;
+            border-radius: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .mobile-logo .sj-logo {
+            background: #2563eb;
+            color: white;
+            padding: 4px 8px;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 8px;
+        }
+        
+        .mobile-logo .logo-text {
+            font-weight: bold;
+            font-size: 14px;
+            color: #0f172a;
+        }
+    
             .desktop-nav {
                 display: none !important;
             }
@@ -451,125 +316,122 @@
     </style>
 </head>
 <body>
-<!-- Mobile Logo - Shows on small screens -->
 <div class="mobile-logo" id="mobileLogo">
-    <img src="/assets/sky_square_logo.png">
-    <h5>SkySqure</h5>
+    <div class="sj-logo">SJ</div>
+    <div class="logo-text">SkySqure</div>
 </div>
 
-<!-- Mobile Menu Button -->
-<div class="mobile-menu-btn" id="mobileMenuBtn">
-    <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+<div class="mobile-menu-btn" id="mobileMenuBtn" style="z-index: 1001;">
+    <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="3" y1="12" x2="21" y2="12"></line>
         <line x1="3" y1="6" x2="21" y2="6"></line>
         <line x1="3" y1="18" x2="21" y2="18"></line>
     </svg>
 </div>
 
-<!-- Mobile Menu -->
 <div class="mobile-menu" id="mobileMenu">
-    <nav class="flex flex-col">
-        <a href="#overview">Overview</a>
+    <nav class="flex flex-col gap-4 mt-20 p-6"> <a href="#overview">Overview</a>
         <a href="#location">Location</a>
         <a href="#amenities">Amenities</a>
         <a href="#plans">Plans</a>
         <a href="#gallery">Gallery</a>
         <a href="tel:+919049902727" style="color: #2563eb;">Call: +91 90499 02727</a>
-        <button id="mobileEnquireBtn" class="blue-gradient text-white px-6 py-3 rounded-full font-bold w-full" style="margin-top: 20px;">Enquire Now</button>
+        <button id="mobileEnquireBtn" onclick="openModal('enquire')" style="background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%); color: white; border: none; margin-top: 20px; padding: 14px; border-radius: 30px; font-weight: bold; width: 100%; cursor: pointer;">Enquire Now</button>
     </nav>
 </div>
 
-<div class="overlay" id="overlay"></div>
+<div class="overlay" id="overlay" onclick="closeMobileMenu()"></div>
+    <!-- Desktop Navigation -->
+    <nav class="desktop-nav fixed w-full z-50 nav-glass border-b border-slate-100 transition-all duration-300 py-3">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3 group cursor-pointer">
+                <div class="bg-blue-600 text-white px-3 py-1 font-black text-xl italic rounded-lg group-hover:rotate-3 transition-transform">SJ</div>
+                <div class="flex flex-col leading-none">
+                    <span class="text-lg font-extrabold tracking-tighter uppercase text-slate-900">SkySqure</span>
+                </div>
+            </div>
+            
+            <div class="flex gap-10 font-bold text-[11px] uppercase tracking-[0.2em] text-slate-500">
+                <a href="#overview" class="hover:text-blue-600 transition">Overview</a>
+                <a href="#location" class="hover:text-blue-600 transition">Location</a>
+                <a href="#amenities" class="hover:text-blue-600 transition">Amenities</a>
+                <a href="#plans" class="hover:text-blue-600 transition">Plans</a>
+                <a href="#gallery" class="hover:text-blue-600 transition">Gallery</a>
+            </div>
 
-<!-- Desktop Navigation -->
-<nav class="desktop-nav fixed w-full z-50 nav-glass border-b border-slate-100 py-3">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <div class="desktop_logo">
-           <img src="/assets/sky_square_logo.png">
-           <h5>SkySqure</h5>
+            <div class="flex items-center gap-4">
+                <a href="tel:+919049902727" class="flex items-center gap-2 font-bold text-slate-900 text-sm hover:text-blue-600 transition">
+                    <i data-lucide="phone-call" class="w-4 h-4 text-blue-600"></i> +91 90499 02727
+                </a>
+                <button id="enquireNavBtn" class="blue-gradient text-white px-7 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest hover:shadow-lg transition-all">Enquire Now</button>
+            </div>
         </div>
+    </nav>
+
+    <!-- Header Section -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <img src="assets/outside.jpeg" class="absolute inset-0 w-full h-full object-cover" alt="SkySqure Elevation">
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
         
-        <div class="flex gap-10 font-bold text-[11px] uppercase tracking-[0.2em] text-slate-500">
-            <a href="#overview" class="hover:text-blue-600">Overview</a>
-            <a href="#location" class="hover:text-blue-600">Location</a>
-            <a href="#amenities" class="hover:text-blue-600">Amenities</a>
-            <a href="#plans" class="hover:text-blue-600">Plans</a>
-            <a href="#gallery" class="hover:text-blue-600">Gallery</a>
-        </div>
-
-        <div class="flex items-center gap-4">
-            <a href="tel:+919049902727" class="flex items-center gap-2 font-bold text-slate-900 text-sm hover:text-blue-600">
-                <i data-lucide="phone-call" class="w-4 h-4 text-blue-600"></i> +91 90499 02727
-            </a>
-            <button id="enquireNavBtn" class="blue-gradient text-white px-7 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest">Enquire Now</button>
-        </div>
-    </div>
-</nav>
-
-<!-- Header Section -->
-<header class="relative h-screen flex items-center justify-center overflow-hidden">
-    <img src="assets/outside.jpeg" class="absolute inset-0 w-full h-full object-cover" alt="SkySqure Elevation">
-    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-    
-    <div class="relative z-10 text-center text-white px-4 max-w-4xl">
-        <div class="inline-block px-4 py-1.5 border border-white/30 rounded-full backdrop-blur-md mb-8">
-            <p class="text-white font-bold uppercase tracking-[0.3em] text-[10px]">Now Launching High-Rise Living</p>
-        </div>
-        <h1 class="heading-xl text-5xl md:text-7xl lg:text-8xl mb-10">A Life Rooted <br> In <span class="text-blue-500 italic">Serenity.</span></h1>
-        
-        <div class="flex flex-col sm:flex-row gap-5 justify-center items-center">
-            <a href="assets/Sky_Square_Brochure.pdf" download="Sky_Square_Brochure" class="group flex items-center gap-3 bg-white text-black px-10 py-5 rounded-full font-bold uppercase text-xs tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-lg">
-                <i data-lucide="download" class="w-4 h-4 group-hover:animate-bounce"></i>
-                Download Brochure
-            </a>
-        </div>
-    </div>
-
-    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-        <span class="text-[10px] uppercase tracking-[0.3em] text-white/50 font-bold">Scroll</span>
-        <div class="w-px h-12 bg-gradient-to-b from-blue-600 to-transparent"></div>
-    </div>
-</header>
-
-<!-- Overview Section -->
-<section id="overview" class="py-24 lg:py-32 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-16 lg:mb-24">
-            <div>
-                <span class="text-blue-600 font-extrabold uppercase tracking-widest text-xs">The Vision</span>
-                <h2 class="heading-xl text-4xl md:text-5xl lg:text-6xl mt-4 mb-6 lg:mb-8">Elevated by Modernity, <br>Rooted in Culture.</h2>
+        <div class="relative z-10 text-center text-white px-4 max-w-4xl">
+            <div class="inline-block px-4 py-1.5 border border-white/30 rounded-full backdrop-blur-md mb-8">
+                <p class="text-white font-bold uppercase tracking-[0.3em] text-[10px]">Now Launching High-Rise Living</p>
             </div>
-            <p class="text-base lg:text-xl text-slate-500 leading-relaxed font-medium">
-                At SkySqure, we redefine the Pune skyline. Nestled against the scenic Warje hills, our architecture blends the raw beauty of nature with the sharp precision of modern glass facades.
-            </p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            <div class="p-8 lg:p-10 border border-slate-100 bg-slate-50 rounded-[2rem] lg:rounded-[2.5rem] hover-lift text-center">
-                <i data-lucide="building-2" class="text-blue-600 mb-4 lg:mb-6 w-8 h-8 mx-auto"></i>
-                <p class="text-4xl lg:text-5xl font-black text-slate-900">15</p>
-                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-2 lg:mt-3">Storey Landmark</p>
-            </div>
-            <div class="p-8 lg:p-10 border border-slate-100 bg-slate-50 rounded-[2rem] lg:rounded-[2.5rem] hover-lift text-center">
-                <i data-lucide="map" class="text-blue-600 mb-4 lg:mb-6 w-8 h-8 mx-auto"></i>
-                <p class="text-4xl lg:text-5xl font-black text-slate-900">0.6</p>
-                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-2 lg:mt-3">Acre Green Estate</p>
-            </div>
-            <div class="p-8 lg:p-10 border border-slate-100 bg-slate-50 rounded-[2rem] lg:rounded-[2.5rem] hover-lift text-center">
-                <i data-lucide="sparkles" class="text-blue-600 mb-4 lg:mb-6 w-8 h-8 mx-auto"></i>
-                <p class="text-4xl lg:text-5xl font-black text-slate-900">20+</p>
-                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-2 lg:mt-3">Lifestyle Amenities</p>
-            </div>
-            <div class="p-8 lg:p-10 border border-slate-100 bg-slate-50 rounded-[2rem] lg:rounded-[2.5rem] hover-lift text-center">
-                <i data-lucide="layout" class="text-blue-600 mb-4 lg:mb-6 w-8 h-8 mx-auto"></i>
-                <p class="text-4xl lg:text-5xl font-black text-slate-900">Zero</p>
-                <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-2 lg:mt-3">Wastage Design</p>
+            <h1 class="heading-xl text-5xl md:text-7xl lg:text-8xl mb-10">A Life Rooted <br> In <span class="text-blue-500 italic">Serenity.</span></h1>
+            
+            <div class="flex flex-col sm:flex-row gap-5 justify-center items-center">
+                <a href="assets/Sky_Square_Brochure.pdf" download="Sky_Square_Brochure" class="group flex items-center gap-3 bg-white text-black px-10 py-5 rounded-full font-bold uppercase text-xs tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-lg">
+                    <i data-lucide="download" class="w-4 h-4 group-hover:animate-bounce"></i>
+                    Download Brochure
+                </a>
             </div>
         </div>
-    </div>
-</section>
 
-<!-- Location Section -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+            <span class="text-[10px] uppercase tracking-[0.3em] text-white/50 font-bold">Scroll</span>
+            <div class="w-px h-12 bg-gradient-to-b from-blue-600 to-transparent"></div>
+        </div>
+    </header>
+
+    <!-- Overview Section -->
+    <section id="overview" class="py-24 lg:py-32 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center mb-16 lg:mb-24">
+                <div>
+                    <span class="text-blue-600 font-extrabold uppercase tracking-widest text-xs">The Vision</span>
+                    <h2 class="heading-xl text-4xl md:text-5xl lg:text-6xl mt-4 mb-6 lg:mb-8">Elevated by Modernity, <br>Rooted in Culture.</h2>
+                </div>
+                <p class="text-base lg:text-xl text-slate-500 leading-relaxed font-medium">
+                    At SkySqure, we redefine the Pune skyline. Nestled against the scenic Warje hills, our architecture blends the raw beauty of nature with the sharp precision of modern glass facades.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                <div class="p-8 lg:p-10 border border-slate-100 bg-slate-50 rounded-[2rem] lg:rounded-[2.5rem] hover-lift text-center">
+                    <i data-lucide="building-2" class="text-blue-600 mb-4 lg:mb-6 w-8 h-8 mx-auto"></i>
+                    <p class="text-4xl lg:text-5xl font-black text-slate-900">15</p>
+                    <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-2 lg:mt-3">Storey Landmark</p>
+                </div>
+                <div class="p-8 lg:p-10 border border-slate-100 bg-slate-50 rounded-[2rem] lg:rounded-[2.5rem] hover-lift text-center">
+                    <i data-lucide="map" class="text-blue-600 mb-4 lg:mb-6 w-8 h-8 mx-auto"></i>
+                    <p class="text-4xl lg:text-5xl font-black text-slate-900">0.6</p>
+                    <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-2 lg:mt-3">Acre Green Estate</p>
+                </div>
+                <div class="p-8 lg:p-10 border border-slate-100 bg-slate-50 rounded-[2rem] lg:rounded-[2.5rem] hover-lift text-center">
+                    <i data-lucide="sparkles" class="text-blue-600 mb-4 lg:mb-6 w-8 h-8 mx-auto"></i>
+                    <p class="text-4xl lg:text-5xl font-black text-slate-900">20+</p>
+                    <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-2 lg:mt-3">Lifestyle Amenities</p>
+                </div>
+                <div class="p-8 lg:p-10 border border-slate-100 bg-slate-50 rounded-[2rem] lg:rounded-[2.5rem] hover-lift text-center">
+                    <i data-lucide="layout" class="text-blue-600 mb-4 lg:mb-6 w-8 h-8 mx-auto"></i>
+                    <p class="text-4xl lg:text-5xl font-black text-slate-900">Zero</p>
+                    <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest mt-2 lg:mt-3">Wastage Design</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
     <section id="location" class="py-24 lg:py-32 bg-slate-950 text-white">
             <!-- Privileges of Warje Address - Cards Section -->
             <div class="mt-10 lg:mt-2">
@@ -888,10 +750,10 @@
                         </div>
                     </div>
                     
-                    <a href="/assets/home_structure.jpeg" download class="floorPlanBtn p-2 flex items-center justify-center w-full bg-white text-black py-4 lg:py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all" data-unit="2 BHK Elite">
+                    <button class="floorPlanBtn w-full bg-white text-black py-4 lg:py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all" data-unit="2 BHK Elite">
                         <i data-lucide="download" class="inline w-4 h-4 mr-2"></i>
                         Download Floor Plan
-                    </a>
+                    </button>
                 </div>
 
                 <div class="dark-card p-6 lg:p-12 rounded-[2rem] lg:rounded-[3rem] group hover:border-blue-600 transition-all">
@@ -916,10 +778,10 @@
                         </div>
                     </div>
                     
-                    <a href="/assets/3bhk_plan.jpeg" download class="floorPlanBtn w-full flex items-center justify-center bg-white text-black py-4 lg:py-5 rounded-2xl font-black text-xs p-2 uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all" data-unit="3 BHK Imperial">
+                    <button class="floorPlanBtn w-full bg-white text-black py-4 lg:py-5 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all" data-unit="3 BHK Imperial">
                         <i data-lucide="download" class="inline w-4 h-4 mr-2"></i>
                         Download Floor Plan
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -1073,48 +935,41 @@
     <!-- Footer -->
     <footer class="bg-slate-50 pt-16 lg:pt-32 pb-8 lg:pb-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-           <div class="bg-white p-6 lg:p-12 xl:p-20 rounded-[2rem] lg:rounded-[3rem] xl:rounded-[4rem] shadow-2xl -mt-32 lg:-mt-48 relative z-10">
-                <div class="text-center mb-12">
-                    <span class="text-blue-600 font-bold text-xs uppercase tracking-wider">❤️ Happy Homeowners</span>
-                    <h2 class="heading-xl text-3xl lg:text-4xl xl:text-5xl mt-2">What Our <span class="text-blue-600">Customers Say</span></h2>
-                </div>
-    
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="bg-gradient-to-br from-slate-50 to-white p-8 rounded-2xl shadow-lg">
-                        <div class="flex items-center gap-2 mb-4">
-                            <div class="flex text-yellow-400">
-                                ★★★★★
+            <div class="bg-white p-6 lg:p-12 xl:p-20 rounded-[2rem] lg:rounded-[3rem] xl:rounded-[4rem] shadow-2xl -mt-32 lg:-mt-48 relative z-10">
+                <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                    <div>
+                        <h2 class="heading-xl text-3xl lg:text-4xl xl:text-5xl mb-4 lg:mb-6">Ready to move <br><span class="text-blue-600">Sky High?</span></h2>
+                        <p class="text-slate-500 text-sm lg:text-base mb-6 lg:mb-8">Our advisors are available 24/7 to help you choose the perfect home.</p>
+                        
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3 text-slate-800 font-medium text-sm">
+                                <div class="w-8 h-8 lg:w-10 lg:h-10 bg-slate-100 rounded-full flex items-center justify-center"><i data-lucide="mail" class="w-4 h-4"></i></div>
+                                sales@skysqure.in
                             </div>
-                            <span class="text-sm text-slate-500">5.0</span>
-                        </div>
-                        <p class="text-slate-600 italic mb-6">"Amazing location and premium amenities. The team was very helpful throughout the buying process. Highly recommended!"</p>
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">RK</div>
-                            <div>
-                                <p class="font-bold">Suyash Yelpale</p>
-                                <p class="text-xs text-slate-400">2 BHK Elite Owner</p>
+                            <div class="flex items-center gap-3 text-slate-800 font-medium text-sm">
+                                <div class="w-8 h-8 lg:w-10 lg:h-10 bg-slate-100 rounded-full flex items-center justify-center"><i data-lucide="phone" class="w-4 h-4"></i></div>
+                                +91 90499 02727
+                            </div>
+                            <div class="flex items-center gap-3 text-slate-800 font-medium text-sm">
+                                <div class="w-8 h-8 lg:w-10 lg:h-10 bg-slate-100 rounded-full flex items-center justify-center"><i data-lucide="map-pin" class="w-4 h-4"></i></div>
+                                <span class="text-xs lg:text-sm">S.No.116/9/2 & 116/9/3, Cipla Foundation Approach Road, Warje, Pune - 411 058</span>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="bg-gradient-to-br from-slate-50 to-white p-8 rounded-2xl shadow-lg">
-                        <div class="flex items-center gap-2 mb-4">
-                            <div class="flex text-yellow-400">
-                                ★★★★★
-                            </div>
-                            <span class="text-sm text-slate-500">5.0</span>
+                    <form id="callbackFormFooter" class="space-y-4 bg-slate-50 p-6 lg:p-8 rounded-2xl lg:rounded-3xl">
+                        <div>
+                            <label class="text-[10px] font-black uppercase tracking-wider text-slate-400 ml-2">Full Name</label>
+                            <input type="text" id="callbackName" placeholder="Your name" class="w-full p-3 lg:p-4 bg-white border border-slate-200 rounded-xl focus:border-blue-600 outline-none" required>
                         </div>
-                        <p class="text-slate-600 italic mb-6">"The construction quality is excellent. Love the rooftop amenities and the hill view from my apartment!"</p>
-                        <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white font-bold">SP</div>
-                            <div>
-                                <p class="font-bold">Shreya Patil</p>
-                                <p class="text-xs text-slate-400">3 BHK Imperial Owner</p>
-                            </div>
+                        <div>
+                            <label class="text-[10px] font-black uppercase tracking-wider text-slate-400 ml-2">Contact Number</label>
+                            <input type="tel" id="callbackPhone" placeholder="+91" class="w-full p-3 lg:p-4 bg-white border border-slate-200 rounded-xl focus:border-blue-600 outline-none" required>
                         </div>
+                        <button type="submit" class="w-full blue-gradient text-white py-3 lg:py-4 rounded-xl font-black uppercase tracking-widest text-xs">Request a Callback</button>
+                    </form>
                 </div>
-                </div>
-        </div>
+            </div>
 
             <div class="mt-16 lg:mt-24 flex flex-col gap-8 border-t border-slate-200 pt-12">
                 <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
@@ -1168,99 +1023,67 @@
         </div>
     </footer>
 
-<!-- Modals -->
-<div id="imageModal" class="fixed inset-0 z-[1100] hidden items-center justify-center bg-black/95">
-    <div class="relative max-w-5xl w-full mx-4">
-        <button onclick="closeImageModal()" class="absolute -top-12 right-0 bg-red-600 text-white rounded-full p-3">✕</button>
-        <img id="modalImage" src="" class="w-full h-auto max-h-[80vh] object-contain rounded-xl">
-        <p id="modalImageTitle" class="text-white text-center mt-4 font-bold"></p>
-    </div>
-</div>
-
-<div id="videoModal" class="fixed inset-0 z-[1100] hidden items-center justify-center bg-black/95">
-    <div class="relative w-full max-w-4xl mx-4">
-        <button onclick="closeVideoModal()" class="absolute -top-12 right-0 bg-red-600 text-white rounded-full p-3">✕</button>
-        <video id="galleryVideo" class="w-full rounded-xl" controls>
-            <source src="/assets/sky-square-tour.mp4" type="video/mp4">
-        </video>
-    </div>
-</div>
-
-<div id="floorPlanModal" class="fixed inset-0 z-[1000] hidden items-center justify-center bg-black/95">
-    <div class="relative max-w-5xl w-full mx-4">
-        <button onclick="closeFloorPlanModal()" class="absolute -top-12 right-0 bg-red-600 text-white rounded-full p-3">✕</button>
-        <img id="modalFloorPlanImg" src="" class="w-full h-auto max-h-[80vh] object-contain rounded-xl">
-        <p id="modalFloorPlanTitle" class="text-white text-center mt-4 font-bold"></p>
-    </div>
-</div>
-
-<div id="dynamicModal" class="modal-overlay">
-    <div class="modal-container">
-        <div class="flex justify-between items-center mb-6">
-            <h3 class="text-2xl font-black">Quick Enquiry</h3>
-            <button id="closeModalBtn" class="text-2xl">&times;</button>
+    <!-- Modals -->
+    <div id="imageModal" class="fixed inset-0 z-[1100] hidden items-center justify-center bg-black/95" onclick="closeImageModal()">
+        <div class="relative max-w-5xl w-full mx-4" onclick="event.stopPropagation()">
+            <button onclick="closeImageModal()" class="absolute -top-12 right-0 bg-red-600 text-white rounded-full p-3 hover:scale-110 transition">✕</button>
+            <img id="modalImage" src="" class="w-full h-auto max-h-[80vh] object-contain rounded-xl">
+            <p id="modalImageTitle" class="text-white text-center mt-4 font-bold"></p>
         </div>
-        <div id="messageContainer"></div>
-        <form id="modalEnquiryForm">
-            <input type="text" id="modalName" placeholder="Full Name" class="w-full p-4 border rounded-2xl mb-4" required>
-            <input type="tel" id="modalPhone" placeholder="Mobile Number" class="w-full p-4 border rounded-2xl mb-4" required>
-            <input type="email" id="modalEmail" placeholder="Email Address" class="w-full p-4 border rounded-2xl mb-4" required>
-            <select id="modalUnit" class="w-full p-4 border rounded-2xl mb-4">
-                <option value="2 BHK Elite">2 BHK Elite</option>
-                <option value="3 BHK Imperial">3 BHK Imperial</option>
-            </select>
-            <button type="submit" class="w-full blue-gradient text-white py-4 rounded-2xl font-black">Submit</button>
-        </form>
     </div>
-</div>
 
-<div id="toastMsg" class="toast-message"></div>
+    <div id="videoModal" class="fixed inset-0 z-[1100] hidden items-center justify-center bg-black/95" onclick="closeVideoModal()">
+        <div class="relative w-full max-w-4xl mx-4" onclick="event.stopPropagation()">
+            <button onclick="closeVideoModal()" class="absolute -top-12 right-0 bg-red-600 text-white rounded-full p-3 hover:scale-110 transition">✕</button>
+            <video id="galleryVideo" class="w-full rounded-xl" controls autoplay>
+                <source src="/assets/sky-square-tour.mp4" type="video/mp4">
+            </video>
+        </div>
+    </div>
 
-<script>
-// EmailJS Configuration
-const EMAILJS_CONFIG = {
-    PUBLIC_KEY: 'lz-elmgEq87cVYDde',
-    SERVICE_ID: 'service_79iws03',
-    TEMPLATE_ID: 'template_96ulw7j',
-    TO_EMAIL: 'sales@sjgroupindia.in'
-}
+    <div id="floorPlanModal" class="fixed inset-0 z-[1000] hidden items-center justify-center bg-black/95" onclick="closeFloorPlanModal()">
+        <div class="relative max-w-5xl w-full mx-4" onclick="event.stopPropagation()">
+            <button onclick="closeFloorPlanModal()" class="absolute -top-12 right-0 bg-red-600 text-white rounded-full p-3 hover:scale-110 transition">✕</button>
+            <img id="modalFloorPlanImg" src="" class="w-full h-auto max-h-[80vh] object-contain rounded-xl">
+            <p id="modalFloorPlanTitle" class="text-white text-center mt-4 font-bold"></p>
+        </div>
+    </div>
 
-// Initialize EmailJS
-emailjs.init({
-    publicKey: EMAILJS_CONFIG.PUBLIC_KEY
-});
+    <div id="dynamicModal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="modalTitle" class="text-2xl font-black">Quick Enquiry</h3>
+                <button id="closeModalBtn" class="text-2xl">&times;</button>
+            </div>
+            <form id="modalEnquiryForm">
+                <input type="text" id="modalName" placeholder="Full Name" class="w-full p-4 border rounded-2xl mb-4" required>
+                <input type="tel" id="modalPhone" placeholder="Mobile Number" class="w-full p-4 border rounded-2xl mb-4" required>
+                <select id="modalUnit" class="w-full p-4 border rounded-2xl mb-4">
+                    <option value="2 BHK Elite">2 BHK Elite</option>
+                    <option value="3 BHK Imperial">3 BHK Imperial</option>
+                </select>
+                <button type="submit" class="w-full blue-gradient text-white py-4 rounded-2xl font-black">Submit</button>
+            </form>
+        </div>
+    </div>
 
-// ========== GLOBAL VARIABLES ==========
-let mobileMenu = null;
-let overlayDiv = null;
-let menuIcon = null;
-let mobileBtn = null;
+    <div id="toastMsg" class="toast-message"></div>
+
+    <script>
+// Mobile Menu Functions
+const mobileBtn = document.getElementById('mobileMenuBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+const overlayDiv = document.getElementById('overlay');
+const menuIcon = document.getElementById('menuIcon');
 
 // ========== MOBILE MENU FUNCTIONS ==========
 function openMobileMenu() {
-    if (mobileMenu) {
-        mobileMenu.classList.add('open');
-    }
-    if (overlayDiv) {
-        overlayDiv.classList.add('active');
-    }
+    mobileMenu.classList.add('open');
+    overlayDiv.classList.add('active');
     document.body.style.overflow = 'hidden';
     
-    // Change icon to X - Direct SVG manipulation
+    // Change icon to close (X)
     if (menuIcon) {
-        // Clear all existing content
-        menuIcon.innerHTML = '';
-        // Set SVG attributes
-        menuIcon.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-        menuIcon.setAttribute('width', '24');
-        menuIcon.setAttribute('height', '24');
-        menuIcon.setAttribute('viewBox', '0 0 24 24');
-        menuIcon.setAttribute('fill', 'none');
-        menuIcon.setAttribute('stroke', 'currentColor');
-        menuIcon.setAttribute('stroke-width', '2');
-        menuIcon.setAttribute('stroke-linecap', 'round');
-        menuIcon.setAttribute('stroke-linejoin', 'round');
-        // Add X lines
         menuIcon.innerHTML = `
             <line x1="18" y1="6" x2="6" y2="18"></line>
             <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -1269,29 +1092,12 @@ function openMobileMenu() {
 }
 
 function closeMobileMenu() {
-    if (mobileMenu) {
-        mobileMenu.classList.remove('open');
-    }
-    if (overlayDiv) {
-        overlayDiv.classList.remove('active');
-    }
+    mobileMenu.classList.remove('open');
+    overlayDiv.classList.remove('active');
     document.body.style.overflow = 'auto';
     
-    // Change icon back to hamburger - Direct SVG manipulation
+    // Change icon back to hamburger menu
     if (menuIcon) {
-        // Clear all existing content
-        menuIcon.innerHTML = '';
-        // Set SVG attributes
-        menuIcon.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-        menuIcon.setAttribute('width', '24');
-        menuIcon.setAttribute('height', '24');
-        menuIcon.setAttribute('viewBox', '0 0 24 24');
-        menuIcon.setAttribute('fill', 'none');
-        menuIcon.setAttribute('stroke', 'currentColor');
-        menuIcon.setAttribute('stroke-width', '2');
-        menuIcon.setAttribute('stroke-linecap', 'round');
-        menuIcon.setAttribute('stroke-linejoin', 'round');
-        // Add hamburger lines
         menuIcon.innerHTML = `
             <line x1="3" y1="12" x2="21" y2="12"></line>
             <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -1300,321 +1106,220 @@ function closeMobileMenu() {
     }
 }
 
-window.closeMobileMenu = closeMobileMenu;
-
-// ========== OTHER GLOBAL FUNCTIONS ==========
-window.openEnquiryModal = function() {
-    const modalElement = document.getElementById('dynamicModal');
-    if (modalElement) {
-        modalElement.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-window.closeEnquiryModal = function() {
-    const modalElement = document.getElementById('dynamicModal');
-    if (modalElement) {
-        modalElement.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
-}
-
-window.openImageModal = function(img, title) {
-    const modalImg = document.getElementById('modalImage');
-    const modalTitle = document.getElementById('modalImageTitle');
-    const imageModal = document.getElementById('imageModal');
-    if (modalImg) modalImg.src = img;
-    if (modalTitle) modalTitle.textContent = title;
-    if (imageModal) {
-        imageModal.classList.remove('hidden');
-        imageModal.classList.add('flex');
-        document.body.classList.add('modal-open');
-    }
-}
-
-window.closeImageModal = function() {
-    const imageModal = document.getElementById('imageModal');
-    if (imageModal) {
-        imageModal.classList.add('hidden');
-        document.body.classList.remove('modal-open');
-    }
-}
-
-window.openVideoModal = function() {
-    const modalVideo = document.getElementById('videoModal');
-    const video = document.getElementById('galleryVideo');
-    if (modalVideo) {
-        modalVideo.classList.remove('hidden');
-        modalVideo.classList.add('flex');
-        document.body.classList.add('modal-open');
-        if (video) video.play().catch(e => console.log('Auto-play prevented'));
-    }
-}
-
-window.closeVideoModal = function() {
-    const modalVideo = document.getElementById('videoModal');
-    const video = document.getElementById('galleryVideo');
-    if (modalVideo) modalVideo.classList.add('hidden');
-    if (video) video.pause();
-    document.body.classList.remove('modal-open');
-}
-
-window.openFloorPlanModal = function(img, title) {
-    const modalImg = document.getElementById('modalFloorPlanImg');
-    const modalTitle = document.getElementById('modalFloorPlanTitle');
-    const floorPlanModal = document.getElementById('floorPlanModal');
-    if (modalImg) modalImg.src = img;
-    if (modalTitle) modalTitle.textContent = title;
-    if (floorPlanModal) {
-        floorPlanModal.classList.remove('hidden');
-        floorPlanModal.classList.add('flex');
-        document.body.classList.add('modal-open');
-    }
-}
-
-window.closeFloorPlanModal = function() {
-    const floorPlanModal = document.getElementById('floorPlanModal');
-    if (floorPlanModal) {
-        floorPlanModal.classList.add('hidden');
-        document.body.classList.remove('modal-open');
-    }
-}
-
-window.switchAmenitiesTab = function(tab) {
-    const rooftop = document.getElementById('rooftop-amenities');
-    const indoor = document.getElementById('indoor-amenities');
-    const btnRooftop = document.getElementById('btn-rooftop');
-    const btnIndoor = document.getElementById('btn-indoor');
-    
-    if (tab === 'rooftop') {
-        if (rooftop) rooftop.style.display = 'grid';
-        if (indoor) indoor.style.display = 'none';
-        if (btnRooftop) btnRooftop.className = "px-6 lg:px-8 py-2 lg:py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all bg-blue-600 text-white shadow-lg w-full sm:w-auto";
-        if (btnIndoor) btnIndoor.className = "px-6 lg:px-8 py-2 lg:py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all text-slate-500 hover:bg-slate-200 w-full sm:w-auto";
-    } else {
-        if (indoor) indoor.style.display = 'grid';
-        if (rooftop) rooftop.style.display = 'none';
-        if (btnIndoor) btnIndoor.className = "px-6 lg:px-8 py-2 lg:py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all bg-blue-600 text-white shadow-lg w-full sm:w-auto";
-        if (btnRooftop) btnRooftop.className = "px-6 lg:px-8 py-2 lg:py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all text-slate-500 hover:bg-slate-200 w-full sm:w-auto";
-    }
-    setTimeout(() => {
-        if (typeof lucide !== 'undefined') lucide.createIcons();
-    }, 50);
-}
-
-window.filterGallery = function(category) {
-    const items = document.querySelectorAll('.gallery-item');
-    const buttons = document.querySelectorAll('.gallery-filter-btn');
-    
-    buttons.forEach(btn => {
-        btn.classList.remove('bg-blue-600', 'text-white');
-        btn.classList.add('text-slate-600');
-    });
-    
-    const activeBtn = document.getElementById(`filter-${category}`);
-    if (activeBtn) {
-        activeBtn.classList.remove('text-slate-600');
-        activeBtn.classList.add('bg-blue-600', 'text-white');
-    }
-    
-    items.forEach(item => {
-        if (category === 'all' || item.classList.contains(category)) {
-            item.style.display = 'block';
-        } else {
-            item.style.display = 'none';
-        }
-    });
-}
-
-window.showToast = function(msg) {
-    const toast = document.getElementById('toastMsg');
-    if (toast) {
-        toast.textContent = msg;
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 3000);
-    }
-}
-
-// ========== DOM CONTENT LOADED ==========
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize mobile menu elements
-    mobileBtn = document.getElementById('mobileMenuBtn');
-    mobileMenu = document.getElementById('mobileMenu');
-    overlayDiv = document.getElementById('overlay');
-    menuIcon = document.getElementById('menuIcon');
-    
-    // DOM elements for modal
-    const modal = document.getElementById('dynamicModal');
-    const form = document.getElementById('modalEnquiryForm');
-    const closeBtn = document.getElementById('closeModalBtn');
-    
-    // Create message container
-    let messageContainer = document.getElementById('messageContainer');
-    if (!messageContainer && modal) {
-        messageContainer = document.createElement('div');
-        messageContainer.id = 'messageContainer';
-        const modalContainer = modal.querySelector('.modal-container');
-        const formElement = document.getElementById('modalEnquiryForm');
-        if (modalContainer && formElement) {
-            modalContainer.insertBefore(messageContainer, formElement);
-        }
-    }
-    
-    // Show message function
-    function showFormMessage(text, type = 'success') {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = `${type}-message`;
-        messageDiv.style.cssText = `
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            text-align: center;
-            background: ${type === 'success' ? '#4caf50' : '#f44336'};
-            color: white;
-        `;
-        messageDiv.textContent = text;
-        if (messageContainer) {
-            messageContainer.innerHTML = '';
-            messageContainer.appendChild(messageDiv);
-            setTimeout(() => {
-                if (messageDiv.parentNode) messageDiv.remove();
-            }, 3000);
-        }
-    }
-    
-    function getCurrentDate() {
-        return new Date().toLocaleString('en-US', {
-            dateStyle: 'full',
-            timeStyle: 'medium'
-        });
-    }
-    
-    // Handle Enquire Now buttons
-    const enquireButtons = document.querySelectorAll('#mobileEnquireBtn, #enquireNavBtn');
-    enquireButtons.forEach(button => {
-        button.removeAttribute('onclick');
-        button.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.openEnquiryModal();
-        });
-    });
-    
-    // Handle form submission
-    if (form) {
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const formData = {
-                name: document.getElementById('modalName').value.trim(),
-                phone: document.getElementById('modalPhone').value.trim(),
-                email: document.getElementById('modalEmail').value.trim(),
-                unit: document.getElementById('modalUnit').value
-            };
-            
-            if (!formData.name || !formData.phone || !formData.email) {
-                showFormMessage('Please fill in all required fields', 'error');
-                return;
-            }
-            
-            if (!/^[0-9]{10}$/.test(formData.phone.replace(/\D/g, ''))) {
-                showFormMessage('Please enter a valid 10-digit mobile number', 'error');
-                return;
-            }
-            
-            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-                showFormMessage('Please enter a valid email address', 'error');
-                return;
-            }
-            
-            const submitBtn = form.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = '⏳ Sending...';
-            submitBtn.disabled = true;
-            
-            try {
-                await emailjs.send(
-                    EMAILJS_CONFIG.SERVICE_ID,
-                    EMAILJS_CONFIG.TEMPLATE_ID,
-                    {
-                        from_name: formData.name,
-                        from_email: formData.email,
-                        phone: formData.phone,
-                        unit: formData.unit,
-                        submission_date: getCurrentDate(),
-                        to_email: EMAILJS_CONFIG.TO_EMAIL,
-                        reply_to: formData.email
-                    }
-                );
-                
-                showFormMessage('✓ Thank you! We will contact you shortly.', 'success');
-                form.reset();
-                setTimeout(() => window.closeEnquiryModal(), 2000);
-            } catch (error) {
-                console.error('EmailJS Error:', error);
-                showFormMessage('❌ Failed to send enquiry. Please try again.', 'error');
-            } finally {
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }
-        });
-    }
-    
-    // Close modal
-    if (closeBtn) {
-        closeBtn.addEventListener('click', window.closeEnquiryModal);
-    }
-    
-    // Close modal on outside click
-    if (modal) {
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                window.closeEnquiryModal();
-            }
-        });
-    }
-    
-    // ========== MOBILE MENU EVENT LISTENER ==========
-    if (mobileBtn) {
-        // Remove existing listeners by cloning
-        const newMobileBtn = mobileBtn.cloneNode(true);
-        mobileBtn.parentNode.replaceChild(newMobileBtn, mobileBtn);
-        mobileBtn = newMobileBtn;
-        
-        mobileBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            
-            if (mobileMenu && mobileMenu.classList.contains('open')) {
-                closeMobileMenu();
-            } else {
-                openMobileMenu();
-            }
-        });
-    }
-    
-    // Close menu when clicking overlay
-    if (overlayDiv) {
-        overlayDiv.addEventListener('click', () => {
+// Toggle menu on button click
+if (mobileBtn) {
+    mobileBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (mobileMenu.classList.contains('open')) {
             closeMobileMenu();
-        });
-    }
-    
-    // Close menu when clicking on links
-    document.querySelectorAll('.mobile-menu a, .mobile-menu button').forEach(link => {
-        link.addEventListener('click', () => {
-            setTimeout(closeMobileMenu, 100);
-        });
+        } else {
+            openMobileMenu();
+        }
     });
-    
-    // Initialize Lucide icons
-    if (typeof lucide !== 'undefined') {
-        lucide.createIcons();
+}
+
+// Check screen size for mobile elements
+function checkScreenSize() {
+    if (window.innerWidth <= 1024) {
+        if (mobileBtn) mobileBtn.style.display = 'flex';
+        // Show mobile logo
+        const mobileLogo = document.getElementById('mobileLogo');
+        if (mobileLogo) mobileLogo.style.display = 'flex';
+    } else {
+        if (mobileBtn) mobileBtn.style.display = 'none';
+        // Hide mobile logo on desktop
+        const mobileLogo = document.getElementById('mobileLogo');
+        if (mobileLogo) mobileLogo.style.display = 'none';
+        closeMobileMenu();
     }
-    
-    // Initialize gallery and amenities
-    if (typeof window.filterGallery === 'function') window.filterGallery('all');
-    if (typeof window.switchAmenitiesTab === 'function') window.switchAmenitiesTab('rooftop');
-    
-    console.log('Page loaded - Menu icon will change to X when opened!');
+}
+
+// Close menu when clicking on links
+document.querySelectorAll('.mobile-menu a, .mobile-menu button').forEach(link => {
+    link.addEventListener('click', () => {
+        setTimeout(closeMobileMenu, 100);
+    });
 });
-</script>
+
+// Close menu on escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+        closeMobileMenu();
+    }
+});
+
+// Initialize
+checkScreenSize();
+window.addEventListener('resize', checkScreenSize);
+
+        // Initialize Lucide
+        lucide.createIcons();
+
+        // Amenities Tab
+        function switchAmenitiesTab(tab) {
+            const rooftop = document.getElementById('rooftop-amenities');
+            const indoor = document.getElementById('indoor-amenities');
+            const btnRooftop = document.getElementById('btn-rooftop');
+            const btnIndoor = document.getElementById('btn-indoor');
+            
+            if (tab === 'rooftop') {
+                rooftop.style.display = 'grid';
+                indoor.style.display = 'none';
+                btnRooftop.className = "px-6 lg:px-8 py-2 lg:py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all bg-blue-600 text-white shadow-lg w-full sm:w-auto";
+                btnIndoor.className = "px-6 lg:px-8 py-2 lg:py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all text-slate-500 hover:bg-slate-200 w-full sm:w-auto";
+            } else {
+                indoor.style.display = 'grid';
+                rooftop.style.display = 'none';
+                btnIndoor.className = "px-6 lg:px-8 py-2 lg:py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all bg-blue-600 text-white shadow-lg w-full sm:w-auto";
+                btnRooftop.className = "px-6 lg:px-8 py-2 lg:py-3 rounded-full text-xs font-bold uppercase tracking-widest transition-all text-slate-500 hover:bg-slate-200 w-full sm:w-auto";
+            }
+            setTimeout(() => lucide.createIcons(), 50);
+        }
+
+        // Gallery Filter
+        function filterGallery(category) {
+            const items = document.querySelectorAll('.gallery-item');
+            const buttons = document.querySelectorAll('.gallery-filter-btn');
+            
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white');
+                btn.classList.add('text-slate-600');
+            });
+            
+            const activeBtn = document.getElementById(`filter-${category}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-slate-600');
+                activeBtn.classList.add('bg-blue-600', 'text-white');
+            }
+            
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Modal Functions
+        function openImageModal(img, title) {
+            document.getElementById('modalImage').src = img;
+            document.getElementById('modalImageTitle').textContent = title;
+            document.getElementById('imageModal').classList.remove('hidden');
+            document.getElementById('imageModal').classList.add('flex');
+            document.body.classList.add('modal-open');
+        }
+
+        function closeImageModal() {
+            document.getElementById('imageModal').classList.add('hidden');
+            document.body.classList.remove('modal-open');
+        }
+
+        function openVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('galleryVideo');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.classList.add('modal-open');
+            video.play().catch(e => console.log('Auto-play prevented'));
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('galleryVideo');
+            modal.classList.add('hidden');
+            video.pause();
+            document.body.classList.remove('modal-open');
+        }
+
+        function openFloorPlanModal(img, title) {
+            document.getElementById('modalFloorPlanImg').src = img;
+            document.getElementById('modalFloorPlanTitle').textContent = title;
+            document.getElementById('floorPlanModal').classList.remove('hidden');
+            document.getElementById('floorPlanModal').classList.add('flex');
+            document.body.classList.add('modal-open');
+        }
+
+        function closeFloorPlanModal() {
+            document.getElementById('floorPlanModal').classList.add('hidden');
+            document.body.classList.remove('modal-open');
+        }
+
+        // Toast
+        function showToast(msg) {
+            const toast = document.getElementById('toastMsg');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 3000);
+        }
+
+        // Modal Form
+        const modalForm = document.getElementById('modalEnquiryForm');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const dynamicModal = document.getElementById('dynamicModal');
+
+        function openModal() {
+            dynamicModal.classList.add('active');
+        }
+
+        function closeModalFunc() {
+            dynamicModal.classList.remove('active');
+        }
+
+        if (closeModalBtn) closeModalBtn.addEventListener('click', closeModalFunc);
+        if (dynamicModal) dynamicModal.addEventListener('click', (e) => { if(e.target === dynamicModal) closeModalFunc(); });
+
+        document.getElementById('enquireNavBtn')?.addEventListener('click', () => openModal());
+        document.getElementById('mobileEnquireBtn')?.addEventListener('click', () => openModal());
+
+        if (modalForm) {
+            modalForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('modalName').value;
+                const phone = document.getElementById('modalPhone').value;
+                if(name && phone) {
+                    showToast(`✅ Thanks ${name}! We'll call you shortly.`);
+                    modalForm.reset();
+                    closeModalFunc();
+                } else {
+                    showToast("⚠️ Please fill all details");
+                }
+            });
+        }
+
+        // Footer Form
+        document.getElementById('callbackFormFooter')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('callbackName').value;
+            const phone = document.getElementById('callbackPhone').value;
+            if(name && phone) {
+                showToast(`📞 Callback requested for ${name}`);
+                e.target.reset();
+            } else {
+                showToast("⚠️ Please fill all details");
+            }
+        });
+
+        // Floor Plan Downloads
+        document.querySelectorAll('.floorPlanBtn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                showToast("📄 Download started");
+            });
+        });
+
+        // ESC Key
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'Escape') {
+                closeImageModal();
+                closeVideoModal();
+                closeFloorPlanModal();
+                closeModalFunc();
+            }
+        });
+
+        // Initialize
+        filterGallery('all');
+        switchAmenitiesTab('rooftop');
+    </script>
+</body>
+</html>
